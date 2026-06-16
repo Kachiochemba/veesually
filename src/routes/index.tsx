@@ -175,19 +175,19 @@ function FeaturedArticle({ p, i }: { p: (typeof FEATURED)[number]; i: number }) 
 function Showreel() {
   return (
     <Section title="Featured Showreel" subtitle="Reel 2026">
-      <div className="group relative aspect-video w-full overflow-hidden bg-muted">
-        <video
-          src={showreelVideo.url}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-      </div>
+      <VideoWithToggle
+        src={showreelVideo.url}
+        poster={showreelPoster.url}
+        loop
+        muted
+        autoPlayOnDesktop
+        ariaLabel="featured showreel"
+        className="aspect-video w-full overflow-hidden bg-muted"
+      />
     </Section>
   );
 }
+
 
 function AboutSnippet() {
   const ref = useReveal<HTMLDivElement>();
