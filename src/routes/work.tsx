@@ -1,15 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { PORTFOLIO, CATEGORIES, type Category } from "@/data/site";
+import { useEffect, useRef, useState } from "react";
+import { FEATURED, type Category } from "@/data/site";
 
 export const Route = createFileRoute("/work")({
   head: () => ({
     meta: [
       { title: "Work — VEESUALLY" },
-      { name: "description", content: "Selected videography and content work across events, fashion, corporate, product, weddings, interviews, and social media." },
+      { name: "description", content: "Selected videography work across events, fashion, product, and weddings." },
       { property: "og:title", content: "Work — VEESUALLY" },
-      { property: "og:description", content: "Filterable portfolio of cinematic visual work by Veesually." },
-      { property: "og:image", content: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80" },
+      { property: "og:description", content: "Selected films by Veesually." },
+      { property: "og:image", content: FEATURED[1].image },
     ],
   }),
   component: WorkPage,
@@ -18,8 +18,25 @@ export const Route = createFileRoute("/work")({
 type Filter = "All" | Category;
 
 function WorkPage() {
+  const featuredCategories = Array.from(new Set(FEATURED.map((f) => f.category))) as Category[];
   const [filter, setFilter] = useState<Filter>("All");
-  const items = filter === "All" ? PORTFOLIO : PORTFOLIO.filter((p) => p.category === filter);
+  const [active, setActive] = useState<(typeof FEATURED)[number] | null>(null);
+
+  const items = filter === "All" ? FEATURED : FEATURED.filter((p) => p.category === filter);
+
+  useEffect(() => {
+    if (!active) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setActive(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [active]);
 
   return (
     <div className="pt-24 md:pt-32">
@@ -27,13 +44,12 @@ function WorkPage() {
         <p className="eyebrow">— Selected Work</p>
         <h1 className="mt-4 font-display text-5xl md:text-7xl">Selected work.</h1>
         <p className="mt-6 max-w-xl text-muted-foreground">
-          Selected films and content produced for fashion houses, luxury retail,
-          corporate clients, educational institutions, faith organizations, and
-          cultural events.
+          A focused collection of cinematic films across fashion, luxury retail,
+          cultural events, and weddings.
         </p>
 
         <div className="mt-10 flex flex-wrap gap-2 md:mt-12">
-          {(["All", ...CATEGORIES] as Filter[]).map((c) => (
+          {(["All", ...featuredCategories] as Filter[]).map((c) => (
             <button
               key={c}
               onClick={() => setFilter(c)}
@@ -50,41 +66,118 @@ function WorkPage() {
       </section>
 
       <section className="mx-auto max-w-[1500px] px-6 pb-20 md:px-10 md:pb-32">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {items.map((p) => (
-            <figure key={p.title + p.image} className="group cursor-pointer">
-              <div className="relative aspect-[4/5] overflow-hidden bg-muted">
-                {"video" in p && (p as { video?: string }).video ? (
-                  <video
-                    src={(p as { video: string }).video}
-                    poster={p.image}
-                    muted
-                    loop
-                    playsInline
-                    autoPlay
-                    className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
-                  />
-                ) : (
-                  <img
-                    src={p.image}
-                    alt={p.title}
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
-                  />
-                )}
-                <div className="absolute inset-0 bg-background/0 transition-colors group-hover:bg-background/30" />
-              </div>
-              <figcaption className="mt-4 flex items-baseline justify-between">
-                <span className="font-display text-lg">{p.title}</span>
-                <span className="font-mono text-xs text-muted-foreground">{p.category}</span>
-              </figcaption>
-            </figure>
+            <WorkCard key={p.title} item={p} onOpen={() => setActive(p)} />
           ))}
         </div>
         {items.length === 0 && (
           <p className="py-24 text-center text-muted-foreground">Nothing here yet.</p>
         )}
       </section>
+
+      {active && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={active.title}
+          onClick={() => setActive(null)}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-background/90 px-4 py-10 backdrop-blur-sm"
+        >
+          <button
+            onClick={() => setActive(null)}
+            aria-label="Close video"
+            className="absolute right-4 top-4 z-10 rounded-full border border-border bg-background/60 px-4 py-2 text-xs uppercase tracking-widest text-foreground hover:border-accent hover:text-accent"
+          >
+            Close ✕
+          </button>
+          <div
+            className="relative w-full max-w-6xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <video
+              src={active.video}
+              poster={active.image}
+              controls
+              autoPlay
+              playsInline
+              className="h-auto max-h-[85vh] w-full bg-black"
+            />
+            <div className="mt-4 flex items-baseline justify-between">
+              <span className="font-display text-xl">{active.title}</span>
+              <span className="font-mono text-xs text-muted-foreground">{active.category}</span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
+  );
+}
+
+function WorkCard({
+  item,
+  onOpen,
+}: {
+  item: (typeof FEATURED)[number];
+  onOpen: () => void;
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [hover, setHover] = useState(false);
+
+  const handleEnter = () => {
+    setHover(true);
+    const v = videoRef.current;
+    if (v) {
+      v.currentTime = 0;
+      void v.play().catch(() => {});
+    }
+  };
+  const handleLeave = () => {
+    setHover(false);
+    const v = videoRef.current;
+    if (v) {
+      v.pause();
+      v.currentTime = 0;
+    }
+  };
+
+  return (
+    <figure
+      className="group cursor-pointer"
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+      onClick={onOpen}
+    >
+      <div className="relative aspect-[4/5] overflow-hidden bg-muted">
+        <img
+          src={item.image}
+          alt={item.title}
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
+        />
+        <video
+          ref={videoRef}
+          src={item.video}
+          poster={item.image}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+            hover ? "opacity-100" : "opacity-0"
+          }`}
+        />
+        <div className="absolute inset-0 bg-background/0 transition-colors group-hover:bg-background/20" />
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
+          <span className="rounded-full border border-foreground/60 bg-background/40 px-5 py-2 text-xs uppercase tracking-widest text-foreground backdrop-blur-sm">
+            ▶ Watch
+          </span>
+        </div>
+      </div>
+      <figcaption className="mt-4 flex items-baseline justify-between">
+        <span className="font-display text-lg">{item.title}</span>
+        <span className="font-mono text-xs text-muted-foreground">{item.category}</span>
+      </figcaption>
+    </figure>
   );
 }
