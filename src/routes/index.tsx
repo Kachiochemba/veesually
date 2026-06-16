@@ -33,7 +33,7 @@ function Hero() {
   return (
     <section className="relative flex h-[100svh] min-h-[640px] w-full items-end overflow-hidden">
       <video
-        className="absolute inset-0 h-full w-full object-cover blur-[3px] scale-105"
+        className="absolute inset-0 h-full w-full object-cover blur-[1.5px] scale-105"
         autoPlay
         muted
         loop
