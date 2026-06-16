@@ -1,8 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SERVICES, FEATURED, TESTIMONIALS, CLIENTS, SITE } from "@/data/site";
 import { useReveal } from "@/hooks/useReveal";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { VideoWithToggle } from "@/components/VideoWithToggle";
 import ownerImage from "@/assets/ajoku-victory.jpg.asset.json";
 import showreelVideo from "@/assets/luxury-watches.mp4.asset.json";
+import showreelPoster from "@/assets/luxury-watches-thumb-5s.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
