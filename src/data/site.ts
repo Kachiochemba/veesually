@@ -117,6 +117,7 @@ export const FEATURED = [
     desc: "Cinematic documentation of traditional wedding ceremonies — from vibrant cultural rites and family blessings to the elegant reception. Every moment preserved with storytelling precision.",
     image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&q=80",
     video: traditionalWeddingVideo.url,
+    thumbnailStart: 5,
   },
 ];
 
