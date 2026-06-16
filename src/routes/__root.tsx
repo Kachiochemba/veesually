@@ -10,7 +10,6 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import logoAsset from "@/assets/veesually-mark.png.asset.json";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Nav } from "../components/site/Nav";
 import { Footer } from "../components/site/Footer";
@@ -19,7 +18,7 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <p className="eyebrow">404 · Not found</p>
+        <p className="eyebrow">404 — Not found</p>
         <h1 className="mt-4 font-display text-6xl">Lost in the cut.</h1>
         <p className="mt-4 text-sm text-muted-foreground">
           The page you're looking for doesn't exist or has been moved.
@@ -71,51 +70,26 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "VEESUALLY | Visual Storytelling That Brings Brands To Life" },
+      { title: "VEESUALLY — Visual Storytelling That Brings Brands To Life" },
       { name: "description", content: "Veesually is a premium videography and content creation studio crafting cinematic visual stories for fashion, luxury retail, corporate and cultural brands." },
-      { name: "author", content: "Ajoku Victory" },
+      { name: "author", content: "Veesually" },
       { name: "theme-color", content: "#1a1a1a" },
-      { property: "og:title", content: "VEESUALLY | Visual Storytelling That Brings Brands To Life" },
-      { property: "og:description", content: "Cinematic videography, content creation, and visual storytelling by Ajoku Victory, founder of Veesually in Lagos, Nigeria." },
+      { property: "og:title", content: "VEESUALLY — Visual Storytelling That Brings Brands To Life" },
+      { property: "og:description", content: "Veesually is a premium videography and content creation studio crafting cinematic visual stories for fashion, luxury retail, corporate and cultural brands." },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "VEESUALLY" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "VEESUALLY — Visual Storytelling That Brings Brands To Life" },
+      { name: "twitter:description", content: "Veesually is a premium videography and content creation studio crafting cinematic visual stories for fashion, luxury retail, corporate and cultural brands." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/896d56a0-1eff-4667-98eb-737d61f03b44" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/896d56a0-1eff-4667-98eb-737d61f03b44" },
     ],
     links: [
-      { rel: "icon", type: "image/png", href: logoAsset.url },
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap",
-      },
-    ],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "Organization",
-              name: "VEESUALLY",
-              url: "https://veesually.lovable.app",
-              description: "Premium videography and visual storytelling studio based in Lagos, Nigeria.",
-              founder: { "@type": "Person", name: "Ajoku Victory" },
-              areaServed: "Lagos, Nigeria",
-              sameAs: [
-                "https://instagram.com/veesually_",
-                "https://tiktok.com/@veesually_",
-              ],
-            },
-            {
-              "@type": "WebSite",
-              name: "VEESUALLY",
-              url: "https://veesually.lovable.app",
-            },
-          ],
-        }),
       },
     ],
   }),
