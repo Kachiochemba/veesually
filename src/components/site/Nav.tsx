@@ -33,7 +33,7 @@ export function Nav() {
       <div className="mx-auto flex max-w-[1500px] items-center justify-between px-6 py-5 md:px-10">
         <Link to="/" className="flex items-center gap-3" aria-label="Veesually home">
           <img src={logoAsset.url} alt="" className="block h-10 w-10 md:h-14 md:w-14 object-contain" />
-          <span className="font-display text-[6px] md:text-[8px] tracking-wide text-white">VEESUALLY<span className="text-accent">.</span></span>
+          <span className="font-display text-xs md:text-base tracking-wide text-white">VEESUALLY<span className="text-primary">.</span></span>
         </Link>
 
         <nav className="hidden items-center gap-10 md:flex">
