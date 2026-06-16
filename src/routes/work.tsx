@@ -54,12 +54,24 @@ function WorkPage() {
           {items.map((p) => (
             <figure key={p.title + p.image} className="group cursor-pointer">
               <div className="relative aspect-[4/5] overflow-hidden bg-muted">
-                <img
-                  src={p.image}
-                  alt={p.title}
-                  loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
-                />
+                {"video" in p && (p as { video?: string }).video ? (
+                  <video
+                    src={(p as { video: string }).video}
+                    poster={p.image}
+                    muted
+                    loop
+                    playsInline
+                    autoPlay
+                    className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
+                  />
+                ) : (
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
+                  />
+                )}
                 <div className="absolute inset-0 bg-background/0 transition-colors group-hover:bg-background/30" />
               </div>
               <figcaption className="mt-4 flex items-baseline justify-between">
