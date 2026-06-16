@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { SERVICES, FEATURED, TESTIMONIALS, CLIENTS, SITE } from "@/data/site";
 import { Play, Pause } from "lucide-react";
 import { useReveal } from "@/hooks/useReveal";
