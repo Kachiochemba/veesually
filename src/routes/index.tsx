@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SERVICES, FEATURED, TESTIMONIALS, CLIENTS, SITE } from "@/data/site";
 import { Play } from "lucide-react";
 import { useReveal } from "@/hooks/useReveal";
+import ownerImage from "@/assets/ajoku-victory.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -195,7 +196,7 @@ function AboutSnippet() {
         <div className="md:col-span-5">
           <div className="aspect-[4/5] overflow-hidden bg-muted">
             <img
-              src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1200&q=80"
+              src={ownerImage.url}
               alt="Ajoku Victory"
               className="h-full w-full object-cover"
             />
