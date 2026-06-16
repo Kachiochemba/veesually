@@ -3,6 +3,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { SITE } from "@/data/site";
 import { Mail, Phone, Instagram, MessageCircle } from "lucide-react";
+import { useReveal } from "@/hooks/useReveal";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -23,9 +24,15 @@ const schema = z.object({
   message: z.string().trim().min(10, "A few more words").max(2000),
 });
 
+const BTN_PRIMARY =
+  "rounded-full bg-foreground px-7 py-4 text-xs uppercase tracking-[0.2em] text-background transition-transform hover:scale-[1.02]";
+const BTN_GHOST =
+  "rounded-full border border-border px-7 py-4 text-xs uppercase tracking-[0.2em] transition-colors hover:border-accent hover:text-accent";
+
 function ContactPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
+  const formRef = useReveal<HTMLFormElement>();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -45,15 +52,15 @@ function ContactPage() {
   };
 
   return (
-    <div className="pt-32">
-      <section className="mx-auto max-w-[1500px] px-6 pb-16 md:px-10">
-        <p className="eyebrow">— Contact / Start a Project</p>
+    <div className="pt-24 md:pt-32">
+      <section className="mx-auto max-w-[1500px] px-6 pb-12 md:px-10 md:pb-16">
+        <p className="eyebrow">— Start a Project</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.95] md:text-8xl">
-          Let's create something <span className="italic text-accent">exceptional.</span>
+          Let's create something <span className="text-accent">exceptional.</span>
         </h1>
       </section>
 
-      <section className="mx-auto grid max-w-[1500px] gap-16 px-6 pb-32 md:grid-cols-12 md:px-10">
+      <section className="mx-auto grid max-w-[1500px] gap-16 px-6 pb-20 md:grid-cols-12 md:px-10 md:pb-32">
         <div className="md:col-span-5">
           <p className="eyebrow">Direct</p>
           <ul className="mt-6 space-y-5 text-lg">
@@ -89,20 +96,17 @@ function ContactPage() {
               href={`https://wa.me/${SITE.phoneIntl}?text=${encodeURIComponent("Hi Veesually, I'd like to discuss a project.")}`}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full bg-foreground px-6 py-3 text-xs uppercase tracking-widest text-background"
+              className={BTN_PRIMARY}
             >
               WhatsApp us
             </a>
-            <a
-              href={`mailto:${SITE.email}`}
-              className="rounded-full border border-border px-6 py-3 text-xs uppercase tracking-widest hover:border-accent hover:text-accent"
-            >
+            <a href={`mailto:${SITE.email}`} className={BTN_GHOST}>
               Send email
             </a>
           </div>
         </div>
 
-        <form onSubmit={onSubmit} className="md:col-span-7 space-y-6">
+        <form ref={formRef} onSubmit={onSubmit} className="reveal md:col-span-7 space-y-6">
           <p className="eyebrow">Project enquiry</p>
 
           <Field label="Name" name="name" error={errors.name} />
@@ -134,10 +138,7 @@ function ContactPage() {
             {errors.message && <p className="mt-2 text-xs text-destructive">{errors.message}</p>}
           </div>
 
-          <button
-            type="submit"
-            className="mt-4 rounded-full bg-foreground px-8 py-4 text-xs uppercase tracking-widest text-background transition-transform hover:scale-[1.02]"
-          >
+          <button type="submit" className={`mt-4 ${BTN_PRIMARY}`}>
             Send enquiry →
           </button>
           {sent && <p className="text-xs text-accent">Opening your email client…</p>}
