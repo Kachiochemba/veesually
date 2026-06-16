@@ -3,6 +3,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { SITE } from "@/data/site";
 import { Mail, Phone, Instagram, MessageCircle, MapPin } from "lucide-react";
+import { TikTokIcon } from "@/components/icons/TikTokIcon";
 import { useReveal } from "@/hooks/useReveal";
 
 export const Route = createFileRoute("/contact")({

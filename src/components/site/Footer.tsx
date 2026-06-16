@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { SITE } from "@/data/site";
 import { Instagram } from "lucide-react";
+import { TikTokIcon } from "@/components/icons/TikTokIcon";
 
 export function Footer() {
   return (
