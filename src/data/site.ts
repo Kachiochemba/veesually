@@ -1,4 +1,5 @@
 import tusVideo from "@/assets/tus-ireland.mp4.asset.json";
+import fashionLaunchVideo from "@/assets/fashion-brand-launch.mp4.asset.json";
 import tusThumb from "@/assets/tus-ireland-thumb.jpg.asset.json";
 
 export const SITE = {
@@ -99,6 +100,7 @@ export const FEATURED = [
     category: "Fashion" as Category,
     desc: "Promotional content and event coverage featuring luxury fabrics, laces, asoebi materials, jewelry, wristwatches, and native caps — across the grand opening and ongoing social content.",
     image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80",
+    video: fashionLaunchVideo.url,
   },
   {
     title: "Fashion Brand Launches",
