@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import logoAsset from "@/assets/veesually-logo.png.asset.json";
+import logoAsset from "@/assets/veesually-mark.png.asset.json";
 
 const links = [
   { to: "/", label: "Home" },
@@ -31,8 +31,9 @@ export function Nav() {
       }`}
     >
       <div className="mx-auto flex max-w-[1500px] items-center justify-between px-6 py-5 md:px-10">
-        <Link to="/" className="flex items-center" aria-label="Veesually home">
-          <img src={logoAsset.url} alt="Veesually" className="block h-auto w-[95px] md:w-[200px]" />
+        <Link to="/" className="flex items-center gap-3" aria-label="Veesually home">
+          <img src={logoAsset.url} alt="" className="block h-10 w-10 md:h-14 md:w-14 object-contain" />
+          <span className="font-display text-xl md:text-3xl tracking-wide text-white">VEESUALLY<span className="text-primary">.</span></span>
         </Link>
 
         <nav className="hidden items-center gap-10 md:flex">
