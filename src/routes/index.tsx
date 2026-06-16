@@ -45,10 +45,12 @@ function Index() {
 
 function Hero() {
   const isMobile = useIsMobile();
+  const reducedMotion = usePrefersReducedMotion();
   const posterUrl = "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1920&q=80";
+  const useImage = isMobile || reducedMotion;
   return (
     <section className="relative flex h-[100svh] min-h-[640px] w-full items-end overflow-hidden">
-      {isMobile ? (
+      {useImage ? (
         <img
           src={posterUrl}
           alt=""
@@ -61,6 +63,8 @@ function Hero() {
           muted
           loop
           playsInline
+          preload="metadata"
+          disableRemotePlayback
           poster={posterUrl}
         >
           <source
