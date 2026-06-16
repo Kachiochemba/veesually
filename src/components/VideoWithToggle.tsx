@@ -25,6 +25,8 @@ export function VideoWithToggle({
   muted = true,
   autoPlayOnDesktop = false,
   ariaLabel = "Video",
+  objectPosition,
+  clipRange,
 }: Props) {
   const reducedMotion = usePrefersReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
