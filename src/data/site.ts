@@ -1,6 +1,6 @@
 import tusVideo from "@/assets/tus-ireland.mp4.asset.json";
 import fashionLaunchVideo from "@/assets/fashion-brand-launch.mp4.asset.json";
-import luxuryWatchesVideo from "@/assets/luxury-watches.mp4.asset.json";
+import luxuryWatchesVideo from "@/assets/showreel-featured.mp4.asset.json";
 import traditionalWeddingVideo from "@/assets/traditional-wedding.mp4.asset.json";
 import tusThumb from "@/assets/tus-ireland-thumb.jpg.asset.json";
 
