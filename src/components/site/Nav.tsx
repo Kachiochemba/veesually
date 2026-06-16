@@ -31,9 +31,8 @@ export function Nav() {
       }`}
     >
       <div className="mx-auto flex max-w-[1500px] items-center justify-between px-6 py-5 md:px-10">
-        <Link to="/" className="relative flex items-center" aria-label="Veesually home">
-          <img src={logoAsset.url} alt="Veesually" className="block h-auto w-[95px] md:w-[200px]" />
-          <span className="pointer-events-none absolute inset-0 bg-accent mix-blend-color" aria-hidden="true" />
+        <Link to="/" className="flex items-center" aria-label="Veesually home">
+          <img src={logoAsset.url} alt="Veesually" className="block h-auto w-[95px] md:w-[135px]" />
         </Link>
 
         <nav className="hidden items-center gap-10 md:flex">
