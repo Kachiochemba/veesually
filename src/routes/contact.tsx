@@ -205,7 +205,24 @@ function ContactPage() {
             {sent ? "Sent ✓" : sending ? "Sending…" : "Send enquiry →"}
           </button>
           {sent && <p className="text-xs text-accent">Message sent. We'll be in touch shortly.</p>}
-          {errors.form && <p className="text-xs text-destructive">{errors.form}</p>}
+          {errors.form && (
+            <div className="space-y-3">
+              <p className="text-xs text-destructive">{errors.form}</p>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href={`https://wa.me/${SITE.phoneIntl}?text=${encodeURIComponent("Hi Veesually, I'd like to discuss a project.")}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={BTN_PRIMARY}
+                >
+                  WhatsApp us
+                </a>
+                <a href={`mailto:${SITE.email}`} className={BTN_GHOST}>
+                  Send email
+                </a>
+              </div>
+            </div>
+          )}
         </form>
       </section>
     </div>
