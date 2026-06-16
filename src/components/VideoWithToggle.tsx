@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Play, Pause } from "lucide-react";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 
 type Props = {
   src: string;
@@ -22,11 +22,12 @@ export function VideoWithToggle({
   autoPlayOnDesktop = false,
   ariaLabel = "Video",
 }: Props) {
-  const isMobile = useIsMobile();
+  const reducedMotion = usePrefersReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
   const [started, setStarted] = useState(false);
-  const [iconVisible, setIconVisible] = useState(true);
+  const [preload, setPreload] = useState<"metadata" | "auto">("metadata");
+  const [iconVisible, setIconVisible] = useState(false);
   const hideTimer = useRef<number | null>(null);
 
   const scheduleHide = () => {
@@ -42,24 +43,27 @@ export function VideoWithToggle({
   useEffect(() => {
     if (!autoPlayOnDesktop) return;
     if (typeof window === "undefined") return;
+    if (reducedMotion) return;
     const mobile = window.matchMedia("(max-width: 767px)").matches;
     if (mobile) return;
     const v = videoRef.current;
     if (!v) return;
+    setPreload("auto");
     v.play().then(() => {
       setStarted(true);
       setPlaying(true);
-      scheduleHide();
+      // No icon flash on autoplay — only show on hover/tap.
     }).catch(() => {});
     return () => {
       if (hideTimer.current) window.clearTimeout(hideTimer.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoPlayOnDesktop]);
+  }, [autoPlayOnDesktop, reducedMotion]);
 
   const toggle = () => {
     const v = videoRef.current;
     if (!v) return;
+    setPreload("auto");
     if (v.paused) {
       v.play().then(() => {
         setStarted(true);
@@ -73,13 +77,22 @@ export function VideoWithToggle({
     }
   };
 
-  const showPosterOverlay = isMobile && !started;
+  const handlePointer = () => {
+    if (!started) return;
+    revealIcon();
+  };
+
+  const showPosterOverlay = !started;
+  const mobileLike = typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
+  // Pre-start, show big play button only on mobile OR when reduced-motion forces a manual start.
+  const bigPlayButton = showPosterOverlay && (reducedMotion || mobileLike || !autoPlayOnDesktop);
 
   return (
     <div
       className={`relative ${className}`}
-      onMouseMove={started ? revealIcon : undefined}
-      onTouchStart={started ? revealIcon : undefined}
+      onMouseMove={handlePointer}
+      onMouseEnter={handlePointer}
+      onTouchStart={handlePointer}
       onClick={started ? toggle : undefined}
     >
       <video
@@ -89,12 +102,13 @@ export function VideoWithToggle({
         loop={loop}
         muted={muted}
         playsInline
-        onPlay={() => { setStarted(true); setPlaying(true); revealIcon(); }}
+        preload={preload}
+        onPlay={() => { setStarted(true); setPlaying(true); }}
         onPause={() => { setPlaying(false); revealIcon(); }}
         className="absolute inset-0 h-full w-full object-cover"
       />
 
-      {showPosterOverlay && (
+      {bigPlayButton && (
         <button
           type="button"
           onClick={(e) => { e.stopPropagation(); toggle(); }}

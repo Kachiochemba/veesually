@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SERVICES, FEATURED, TESTIMONIALS, CLIENTS, SITE } from "@/data/site";
 import { useReveal } from "@/hooks/useReveal";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { VideoWithToggle } from "@/components/VideoWithToggle";
 import ownerImage from "@/assets/ajoku-victory.jpg.asset.json";
 import showreelVideo from "@/assets/luxury-watches.mp4.asset.json";
@@ -45,10 +46,12 @@ function Index() {
 
 function Hero() {
   const isMobile = useIsMobile();
+  const reducedMotion = usePrefersReducedMotion();
   const posterUrl = "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1920&q=80";
+  const useImage = isMobile || reducedMotion;
   return (
     <section className="relative flex h-[100svh] min-h-[640px] w-full items-end overflow-hidden">
-      {isMobile ? (
+      {useImage ? (
         <img
           src={posterUrl}
           alt=""
@@ -61,6 +64,8 @@ function Hero() {
           muted
           loop
           playsInline
+          preload="metadata"
+          disableRemotePlayback
           poster={posterUrl}
         >
           <source

@@ -67,6 +67,7 @@ function ContactPage() {
       return;
     }
     setErrors({});
+    setSent(false);
     setSending(true);
 
     try {
@@ -76,12 +77,15 @@ function ContactPage() {
         body: form,
       });
       if (res.ok) {
+        setErrors({});
         setSent(true);
         e.currentTarget.reset();
       } else {
+        setSent(false);
         setErrors({ form: "Something went wrong. Please try again or reach out directly." });
       }
     } catch {
+      setSent(false);
       setErrors({ form: "Something went wrong. Please try again or reach out directly." });
     } finally {
       setSending(false);
