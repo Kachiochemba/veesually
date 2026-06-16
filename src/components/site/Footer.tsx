@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { SITE } from "@/data/site";
 import { Instagram } from "lucide-react";
+import { TikTokIcon } from "@/components/icons/TikTokIcon";
 
 export function Footer() {
   return (
@@ -51,12 +52,12 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  className="hover:text-accent"
+                  className="inline-flex items-center gap-2 hover:text-accent"
                   href={`https://tiktok.com/@${SITE.tiktok}`}
                   target="_blank"
                   rel="noreferrer"
                 >
-                  TikTok / @{SITE.tiktok}
+                  <TikTokIcon size={14} /> @{SITE.tiktok}
                 </a>
               </li>
             </ul>
