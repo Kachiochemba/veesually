@@ -30,12 +30,15 @@ const BTN_PRIMARY =
 const BTN_GHOST =
   "rounded-full border border-border px-7 py-4 text-xs uppercase tracking-[0.2em] transition-colors hover:border-accent hover:text-accent";
 
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xykavngn";
+
 function ContactPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
   const formRef = useReveal<HTMLFormElement>();
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
     const data = Object.fromEntries(form) as Record<string, string>;
@@ -47,9 +50,25 @@ function ContactPage() {
       return;
     }
     setErrors({});
-    const body = `Name: ${data.name}%0AEmail: ${data.email}%0AProject: ${data.type}%0A%0A${encodeURIComponent(data.message)}`;
-    window.location.href = `mailto:${SITE.email}?subject=${encodeURIComponent("New project enquiry: " + data.name)}&body=${body}`;
-    setSent(true);
+    setSending(true);
+
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: form,
+      });
+      if (res.ok) {
+        setSent(true);
+        e.currentTarget.reset();
+      } else {
+        setErrors({ form: "Something went wrong. Please try again or reach out directly." });
+      }
+    } catch {
+      setErrors({ form: "Something went wrong. Please try again or reach out directly." });
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -144,10 +163,11 @@ function ContactPage() {
             {errors.message && <p className="mt-2 text-xs text-destructive">{errors.message}</p>}
           </div>
 
-          <button type="submit" className={`mt-4 ${BTN_PRIMARY}`}>
-            Send enquiry →
+          <button type="submit" disabled={sending || sent} className={`mt-4 ${BTN_PRIMARY} disabled:opacity-60`}>
+            {sent ? "Sent ✓" : sending ? "Sending…" : "Send enquiry →"}
           </button>
-          {sent && <p className="text-xs text-accent">Opening your email client…</p>}
+          {sent && <p className="text-xs text-accent">Message sent. We'll be in touch shortly.</p>}
+          {errors.form && <p className="text-xs text-destructive">{errors.form}</p>}
         </form>
       </section>
     </div>
