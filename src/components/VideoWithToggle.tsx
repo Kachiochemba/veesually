@@ -146,6 +146,7 @@ export function VideoWithToggle({
 
   return (
     <div
+      ref={containerRef}
       className={`relative ${className}`}
       onMouseMove={handlePointer}
       onMouseEnter={handlePointer}
