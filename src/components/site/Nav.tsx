@@ -41,7 +41,7 @@ export function Nav() {
               key={l.to}
               to={l.to}
               className="text-sm text-white/70 transition-colors hover:text-white"
-              activeProps={{ className: "text-white" }}
+              activeProps={{ className: "text-white font-bold" }}
               activeOptions={{ exact: l.to === "/" }}
             >
               {l.label}
