@@ -9,9 +9,9 @@ import showreelVideo from "@/assets/luxury-watches.mp4.asset.json";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "VEESUALLY — Cinematic Videography & Content Creation" },
+      { title: "VEESUALLY | Cinematic Videography & Content Creation" },
       { name: "description", content: "A premium videography and content studio. We help brands, organizations, and events tell their story through cinematic visual content." },
-      { property: "og:title", content: "VEESUALLY — Cinematic Videography & Content Creation" },
+      { property: "og:title", content: "VEESUALLY | Cinematic Videography & Content Creation" },
       { property: "og:description", content: "Visual storytelling that brings brands to life. Event, fashion, corporate, product, and wedding films." },
       { property: "og:image", content: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600&q=80" },
     ],
@@ -59,7 +59,7 @@ function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background" />
 
       <div className="relative z-10 mx-auto w-full max-w-[1500px] px-6 pb-14 md:px-10 md:pb-24">
-        <p className="eyebrow fade-up">Veesually — Est. by Ajoku Victory · Lagos, Nigeria</p>
+        <p className="eyebrow fade-up">Veesually, est. by Ajoku Victory · Lagos, Nigeria</p>
         <h1 className="fade-up mt-6 max-w-5xl font-display text-[clamp(2.75rem,8vw,7.5rem)] leading-[0.9]">
           Visual storytelling<br />
           that brings brands <span className="text-accent">to life.</span>
@@ -215,7 +215,7 @@ function Showreel() {
 function AboutSnippet() {
   const ref = useReveal<HTMLDivElement>();
   return (
-    <Section title="Behind the lens — Ajoku Victory." subtitle="About">
+    <Section title="Behind the lens: Ajoku Victory." subtitle="About">
       <div ref={ref} className="reveal grid gap-12 md:grid-cols-12">
         <div className="md:col-span-5">
           <div className="aspect-[4/5] overflow-hidden bg-muted">
@@ -260,7 +260,7 @@ function TestimonialCard({ t }: { t: (typeof TESTIMONIALS)[number] }) {
       <blockquote className="mt-6 font-display text-2xl leading-snug md:text-3xl">
         "{t.quote}"
       </blockquote>
-      <figcaption className="mt-8 text-sm text-muted-foreground">— {t.name}</figcaption>
+      <figcaption className="mt-8 text-sm text-muted-foreground">{t.name}</figcaption>
     </figure>
   );
 }
@@ -279,7 +279,7 @@ export function Section({
     <section className="mx-auto max-w-[1500px] px-6 py-16 md:px-10 md:py-28">
       <header ref={ref} className="reveal mb-12 flex flex-col gap-4 md:mb-16 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="eyebrow">— {subtitle}</p>
+          <p className="eyebrow">{subtitle}</p>
           <h2 className="mt-4 font-display text-4xl md:text-6xl">{title}</h2>
         </div>
       </header>

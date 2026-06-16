@@ -41,7 +41,7 @@ function WorkPage() {
   return (
     <div className="pt-24 md:pt-32">
       <section className="mx-auto max-w-[1500px] px-6 pb-10 md:px-10 md:pb-12">
-        <p className="eyebrow">— Selected Work</p>
+        <p className="eyebrow">Selected Work</p>
         <h1 className="mt-4 font-display text-5xl md:text-7xl">Selected work.</h1>
         <p className="mt-6 max-w-xl text-muted-foreground">
           A focused collection of cinematic films across fashion, luxury retail,

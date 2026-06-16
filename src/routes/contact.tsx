@@ -48,14 +48,14 @@ function ContactPage() {
     }
     setErrors({});
     const body = `Name: ${data.name}%0AEmail: ${data.email}%0AProject: ${data.type}%0A%0A${encodeURIComponent(data.message)}`;
-    window.location.href = `mailto:${SITE.email}?subject=${encodeURIComponent("New project enquiry — " + data.name)}&body=${body}`;
+    window.location.href = `mailto:${SITE.email}?subject=${encodeURIComponent("New project enquiry: " + data.name)}&body=${body}`;
     setSent(true);
   };
 
   return (
     <div className="pt-24 md:pt-32">
       <section className="mx-auto max-w-[1500px] px-6 pb-12 md:px-10 md:pb-16">
-        <p className="eyebrow">— Start a Project</p>
+        <p className="eyebrow">Start a Project</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.95] md:text-8xl">
           Let's create something <span className="text-accent">exceptional.</span>
         </h1>

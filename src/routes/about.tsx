@@ -21,7 +21,7 @@ function AboutPage() {
   return (
     <div className="pt-24 md:pt-32">
       <section className="mx-auto max-w-[1500px] px-6 pb-16 md:px-10 md:pb-20">
-        <p className="eyebrow">— The Studio</p>
+        <p className="eyebrow">The Studio</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.95] md:text-8xl">
           Meet Ajoku Victory,<br />the creative behind <span className="text-accent">Veesually.</span>
         </h1>
