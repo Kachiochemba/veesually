@@ -149,26 +149,17 @@ function WorkCard({
       onClick={onOpen}
     >
       <div className="relative aspect-[4/5] overflow-hidden bg-muted">
-        <img
-          src={item.image}
-          alt={item.title}
-          loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
-        />
         <video
           ref={videoRef}
           src={item.video}
-          poster={item.image}
           muted
           loop
           playsInline
           preload="metadata"
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
-            hover ? "opacity-100" : "opacity-0"
-          }`}
+          className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-background/0 transition-colors group-hover:bg-background/20" />
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
+        <div className={`absolute inset-0 bg-background/0 transition-colors duration-500 ${hover ? 'bg-background/20' : ''}`} />
+        <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${hover ? 'opacity-100' : 'opacity-0'}`}>
           <span className="rounded-full border border-foreground/60 bg-background/40 px-5 py-2 text-xs uppercase tracking-widest text-foreground backdrop-blur-sm">
             ▶ Watch
           </span>
