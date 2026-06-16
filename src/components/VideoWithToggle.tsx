@@ -55,16 +55,38 @@ export function VideoWithToggle({
     const v = videoRef.current;
     if (!v) return;
     setPreload("auto");
+    const seekStart = () => {
+      if (clipRange) {
+        try { v.currentTime = clipRange.start; } catch {}
+      }
+    };
+    const onLoaded = () => seekStart();
+    v.addEventListener("loadedmetadata", onLoaded);
+    if (v.readyState >= 1) seekStart();
     v.play().then(() => {
       setStarted(true);
       setPlaying(true);
-      // No icon flash on autoplay — only show on hover/tap.
     }).catch(() => {});
     return () => {
+      v.removeEventListener("loadedmetadata", onLoaded);
       if (hideTimer.current) window.clearTimeout(hideTimer.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoPlayOnDesktop, reducedMotion]);
+
+  useEffect(() => {
+    if (!clipRange) return;
+    const v = videoRef.current;
+    if (!v) return;
+    const onTime = () => {
+      if (v.currentTime >= clipRange.end) {
+        try { v.currentTime = clipRange.start; } catch {}
+      }
+    };
+    v.addEventListener("timeupdate", onTime);
+    return () => v.removeEventListener("timeupdate", onTime);
+  }, [clipRange]);
+
 
   const toggle = () => {
     const v = videoRef.current;
