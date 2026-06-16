@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { FEATURED, type Category } from "@/data/site";
+import { VideoWithToggle } from "@/components/VideoWithToggle";
 
 export const Route = createFileRoute("/work")({
   head: () => ({
