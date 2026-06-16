@@ -1,3 +1,6 @@
+import tusVideo from "@/assets/tus-ireland.mp4.asset.json";
+import tusThumb from "@/assets/tus-ireland-thumb.jpg.asset.json";
+
 export const SITE = {
   name: "VEESUALLY",
   tagline: "Visual Storytelling That Brings Brands To Life.",
