@@ -134,6 +134,7 @@ export function VideoWithToggle({
         onPlay={() => { setStarted(true); setPlaying(true); }}
         onPause={() => { setPlaying(false); revealIcon(); }}
         className="absolute inset-0 h-full w-full object-cover"
+        style={objectPosition ? { objectPosition } : undefined}
       />
 
       {bigPlayButton && (
