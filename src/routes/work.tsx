@@ -27,8 +27,9 @@ function WorkPage() {
         <p className="eyebrow">— Selected Work</p>
         <h1 className="mt-4 font-display text-5xl md:text-7xl">Selected work.</h1>
         <p className="mt-6 max-w-xl text-muted-foreground">
-          A living archive of films and content produced for fashion houses,
-          corporate clients, faith organizations, and cultural events.
+          Selected films and content produced for fashion houses, luxury retail,
+          corporate clients, educational institutions, faith organizations, and
+          cultural events.
         </p>
 
         <div className="mt-10 flex flex-wrap gap-2 md:mt-12">

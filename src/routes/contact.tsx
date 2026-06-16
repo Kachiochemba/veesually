@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
 import { SITE } from "@/data/site";
-import { Mail, Phone, Instagram, MessageCircle } from "lucide-react";
+import { Mail, Phone, Instagram, MessageCircle, MapPin } from "lucide-react";
 import { useReveal } from "@/hooks/useReveal";
 
 export const Route = createFileRoute("/contact")({
@@ -88,6 +88,11 @@ function ContactPage() {
               <a href={`https://tiktok.com/@${SITE.tiktok}`} target="_blank" rel="noreferrer" className="group flex items-center gap-3 hover:text-accent">
                 <span className="grid h-[18px] w-[18px] place-items-center font-mono text-xs text-accent">T</span> TikTok / @{SITE.tiktok}
               </a>
+            </li>
+            <li>
+              <span className="flex items-center gap-3 text-muted-foreground">
+                <MapPin size={18} className="text-accent" /> {SITE.location}
+              </span>
             </li>
           </ul>
 

@@ -76,7 +76,7 @@ export function Footer() {
         <div className="mt-20 flex flex-col items-start justify-between gap-6 border-t border-border pt-8 md:flex-row md:items-center">
           <p className="font-display text-3xl tracking-tight">VEESUALLY</p>
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Veesually. Visual storytelling that brings brands to life.
+            Veesually · Lagos, Nigeria · Founded by Ajoku Victory · © {new Date().getFullYear()}
           </p>
         </div>
       </div>

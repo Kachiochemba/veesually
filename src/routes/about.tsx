@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useReveal } from "@/hooks/useReveal";
+import { INDUSTRIES } from "@/data/site";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -21,7 +22,7 @@ function AboutPage() {
       <section className="mx-auto max-w-[1500px] px-6 pb-16 md:px-10 md:pb-20">
         <p className="eyebrow">— The Studio</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.95] md:text-8xl">
-          Meet the creative<br />behind <span className="text-accent">Veesually.</span>
+          Meet Ajoku Victory,<br />the creative behind <span className="text-accent">Veesually.</span>
         </h1>
       </section>
 
@@ -30,7 +31,7 @@ function AboutPage() {
           <div className="aspect-[4/5] overflow-hidden bg-muted">
             <img
               src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1200&q=80"
-              alt="Oghenetejiri Etaghene"
+              alt="Ajoku Victory"
               className="h-full w-full object-cover"
             />
           </div>
@@ -42,22 +43,28 @@ function AboutPage() {
 
         <div ref={bodyRef} className="reveal md:col-span-7 md:pl-8">
           <p className="text-lg leading-relaxed text-foreground md:text-xl">
-            Oghenetejiri Etaghene is a videographer, content creator, and visual storyteller
-            with over two years of experience creating engaging visual content for brands,
-            organizations, fashion businesses, educational institutions, churches, and corporate clients.
+            Ajoku Victory is a videographer, content creator, and visual storyteller
+            with over two years of experience producing high-quality visual content for brands,
+            organizations, educational institutions, churches, conferences, retail, fashion,
+            and corporate clients. Based in Lagos, Nigeria.
           </p>
           <p className="mt-6 text-base text-muted-foreground md:text-lg">
-            His work focuses on capturing authentic moments, building emotional connections,
-            and helping brands communicate their value through compelling visual narratives.
-            Veesually exists at the intersection of cinema and commerce — where craft serves story,
-            and story serves the brand.
+            He specializes in storytelling, event documentation, corporate content, product
+            marketing, social-media short-form, and brand visibility. Known for attention to
+            detail, creativity, professionalism, fast turnaround, strong client communication,
+            and high-quality editing.
+          </p>
+
+          <p className="eyebrow mt-10">Industries</p>
+          <p className="mt-3 text-sm text-muted-foreground">
+            {INDUSTRIES.join(" · ")}
           </p>
 
           <div className="mt-12 grid gap-px bg-border sm:grid-cols-3">
             {[
-              { t: "Authentic moments", d: "Truth before polish." },
-              { t: "Emotional connection", d: "Story over surface." },
-              { t: "Compelling narratives", d: "Craft as message." },
+              { t: "Story-driven", d: "Narrative before noise." },
+              { t: "Premium craft", d: "Cinema-grade editing and color." },
+              { t: "Reliable delivery", d: "Fast turnaround, clear comms." },
             ].map((v) => (
               <div key={v.t} className="bg-background p-6">
                 <p className="font-display text-xl">{v.t}</p>
