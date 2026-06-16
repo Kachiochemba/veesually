@@ -1,0 +1,11 @@
+# VEESUALLY
+
+> Premium videography and visual storytelling studio based in Lagos, Nigeria. Founded by Ajoku Victory, Veesually crafts cinematic content for fashion, luxury retail, corporate, faith, education, and cultural brands.
+
+## Pages
+
+- [Home](/): Overview of Veesually, featured work, and services.
+- [About](/about): Meet Ajoku Victory, the videographer and founder behind Veesually.
+- [Services](/services): Event coverage, corporate videography, fashion & retail content, product films, social-media content, interviews, promotional videos, and wedding films.
+- [Work](/work): Selected portfolio of cinematic films across events, fashion, product, and weddings.
+- [Contact](/contact): Start a project via WhatsApp, email, or the enquiry form.

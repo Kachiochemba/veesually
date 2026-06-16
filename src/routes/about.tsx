@@ -7,11 +7,13 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About | VEESUALLY" },
-      { name: "description", content: "Meet Oghenetejiri Etaghene, the videographer and visual storyteller behind Veesually." },
+      { name: "description", content: "Meet Ajoku Victory, the Lagos-based videographer and visual storyteller behind Veesually, crafting cinematic content for premium brands." },
       { property: "og:title", content: "About | VEESUALLY" },
-      { property: "og:description", content: "Two years crafting cinematic visual content for fashion, faith, education, and corporate clients." },
+      { property: "og:description", content: "Meet Ajoku Victory, the Lagos-based videographer and visual storyteller behind Veesually, crafting cinematic content for premium brands." },
+      { property: "og:url", content: "https://veesually.lovable.app/about" },
       { property: "og:image", content: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1600&q=80" },
     ],
+    links: [{ rel: "canonical", href: "https://veesually.lovable.app/about" }],
   }),
   component: AboutPage,
 });

@@ -6,11 +6,31 @@ export const Route = createFileRoute("/work")({
   head: () => ({
     meta: [
       { title: "Work | VEESUALLY" },
-      { name: "description", content: "Selected videography work across events, fashion, product, and weddings." },
+      { name: "description", content: "Explore our portfolio of cinematic films including event coverage, fashion brand launches, luxury jewelry editorials, weddings, and premium product videography." },
       { property: "og:title", content: "Work | VEESUALLY" },
-      { property: "og:description", content: "Selected films by Veesually." },
+      { property: "og:description", content: "Explore our portfolio of cinematic films including event coverage, fashion brand launches, and premium product videography." },
+      { property: "og:url", content: "https://veesually.lovable.app/work" },
       { property: "og:image", content: FEATURED[1].image },
     ],
+    links: [{ rel: "canonical", href: "https://veesually.lovable.app/work" }],
+    scripts: [{
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: "Selected Work | VEESUALLY",
+        url: "https://veesually.lovable.app/work",
+        about: "Cinematic videography portfolio by Veesually",
+        hasPart: FEATURED.map((f) => ({
+          "@type": "CreativeWork",
+          name: f.title,
+          genre: f.category,
+          description: f.desc,
+          image: f.image,
+          video: f.video,
+        })),
+      }),
+    }],
   }),
   component: WorkPage,
 });
