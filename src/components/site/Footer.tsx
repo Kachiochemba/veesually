@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { SITE } from "@/data/site";
 import { Instagram } from "lucide-react";
 import { TikTokIcon } from "@/components/icons/TikTokIcon";
-import logoAsset from "@/assets/veesually-logo.png.asset.json";
+import logoAsset from "@/assets/veesually-logo-transparent.png.asset.json";
 
 export function Footer() {
   return (
