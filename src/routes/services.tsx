@@ -5,9 +5,9 @@ import { useReveal } from "@/hooks/useReveal";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services — VEESUALLY" },
+      { title: "Services | VEESUALLY" },
       { name: "description", content: "Event coverage, corporate videography, fashion & retail content, product films, social media content, and wedding films." },
-      { property: "og:title", content: "Services — VEESUALLY" },
+      { property: "og:title", content: "Services | VEESUALLY" },
       { property: "og:description", content: "Full-service videography and content creation for premium brands." },
       { property: "og:image", content: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1600&q=80" },
     ],

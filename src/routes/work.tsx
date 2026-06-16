@@ -5,9 +5,9 @@ import { FEATURED, type Category } from "@/data/site";
 export const Route = createFileRoute("/work")({
   head: () => ({
     meta: [
-      { title: "Work — VEESUALLY" },
+      { title: "Work | VEESUALLY" },
       { name: "description", content: "Selected videography work across events, fashion, product, and weddings." },
-      { property: "og:title", content: "Work — VEESUALLY" },
+      { property: "og:title", content: "Work | VEESUALLY" },
       { property: "og:description", content: "Selected films by Veesually." },
       { property: "og:image", content: FEATURED[1].image },
     ],

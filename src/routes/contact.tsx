@@ -9,9 +9,9 @@ import { useReveal } from "@/hooks/useReveal";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — VEESUALLY" },
+      { title: "Contact | VEESUALLY" },
       { name: "description", content: "Start a project with Veesually. Reach out by WhatsApp, email, or the contact form." },
-      { property: "og:title", content: "Contact — VEESUALLY" },
+      { property: "og:title", content: "Contact | VEESUALLY" },
       { property: "og:description", content: "Let's create something exceptional." },
     ],
   }),

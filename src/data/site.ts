@@ -57,13 +57,13 @@ export const SERVICES = [
   {
     n: "07",
     title: "Interviews & Testimonials",
-    desc: "Founder, customer, and convention interviews — composed, lit, and edited with intention.",
+    desc: "Founder, customer, and convention interviews, composed, lit, and edited with intention.",
     image: "https://images.unsplash.com/photo-1638389747564-c7cc1c9f7a49?w=1200&q=80",
   },
   {
     n: "08",
     title: "Wedding & Pre-Wedding Films",
-    desc: "Cinematic storytelling for life's biggest moments — preserved as the films they deserve to be.",
+    desc: "Cinematic storytelling for life's biggest moments, preserved as the films they deserve to be.",
     image: "https://images.unsplash.com/photo-1648328168368-3a25f2152802?w=1200&q=80",
   },
 ];
@@ -100,21 +100,21 @@ export const FEATURED = [
   {
     title: "Ruby Luxe Fashion & Luxury Brand",
     category: "Fashion" as Category,
-    desc: "Promotional content and event coverage featuring luxury fabrics, laces, asoebi materials, jewelry, wristwatches, and native caps — across the grand opening and ongoing social content.",
+    desc: "Promotional content and event coverage featuring luxury fabrics, laces, asoebi materials, jewelry, wristwatches, and native caps, across the grand opening and ongoing social content.",
     image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80",
     video: fashionLaunchVideo.url,
   },
   {
     title: "Luxury Jewelry Editorial",
     category: "Product Videos" as Category,
-    desc: "Cinematic product films for luxury jewelry brands, goldsmiths, and premium retailers — crafted to highlight detail, craftsmanship, and desire.",
+    desc: "Cinematic product films for luxury jewelry brands, goldsmiths, and premium retailers, crafted to highlight detail, craftsmanship, and desire.",
     image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1600&q=80",
     video: luxuryWatchesVideo.url,
   },
   {
     title: "Traditional Wedding Ceremony",
     category: "Weddings" as Category,
-    desc: "Cinematic documentation of traditional wedding ceremonies — from vibrant cultural rites and family blessings to the elegant reception. Every moment preserved with storytelling precision.",
+    desc: "Cinematic documentation of traditional wedding ceremonies, from vibrant cultural rites and family blessings to the elegant reception. Every moment preserved with storytelling precision.",
     image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&q=80",
     video: traditionalWeddingVideo.url,
     thumbnailStart: 5,
@@ -155,7 +155,7 @@ export const TESTIMONIALS = [
     industry: "Fashion House",
     project: "Lookbook & Campaign",
     quote:
-      "Every frame feels intentional. Veesually understands luxury — the pacing, the light, the silence between cuts.",
+      "Every frame feels intentional. Veesually understands luxury: the pacing, the light, the silence between cuts.",
   },
   {
     name: "TUS Ireland Cohort",
