@@ -116,12 +116,6 @@ export const FEATURED = [
     desc: "Highlight videos, promotional content, interviews, worship coverage, convention recaps, and youth engagement films — produced end-to-end.",
     image: "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=1600&q=80",
   },
-  {
-    title: "Luxury Product Campaigns",
-    category: "Product Videos" as Category,
-    desc: "High-quality product films for jewelry vendors, watch vendors, and luxury retail businesses — designed for social engagement and long-term brand awareness.",
-    image: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1600&q=80",
-  },
 ];
 
 export const PORTFOLIO: { title: string; category: Category; image: string }[] = [
