@@ -23,7 +23,7 @@ export function Nav() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+      className={`fixed inset-x-0 top-0 z-50 text-white transition-all duration-500 ${
         scrolled
           ? "backdrop-blur-xl bg-background/70 border-b border-border"
           : "bg-transparent"
@@ -40,8 +40,8 @@ export function Nav() {
             <Link
               key={l.to}
               to={l.to}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-              activeProps={{ className: "text-foreground" }}
+              className="text-sm text-white/70 transition-colors hover:text-white"
+              activeProps={{ className: "text-white" }}
               activeOptions={{ exact: l.to === "/" }}
             >
               {l.label}
@@ -51,7 +51,7 @@ export function Nav() {
 
         <Link
           to="/contact"
-          className="hidden rounded-full border border-border px-5 py-2 text-xs uppercase tracking-widest transition-all hover:border-accent hover:text-accent md:inline-block"
+          className="hidden rounded-full border border-white/30 px-5 py-2 text-xs uppercase tracking-widest text-white transition-all hover:border-white hover:text-white md:inline-block"
         >
           Book a project
         </Link>
