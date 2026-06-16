@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { FEATURED, type Category } from "@/data/site";
 
 export const Route = createFileRoute("/work")({
@@ -141,50 +141,20 @@ function WorkCard({
   item: (typeof FEATURED)[number];
   onOpen: () => void;
 }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [hover, setHover] = useState(false);
-  const startTime = (item as any).thumbnailStart ?? 0;
-
-  const handleEnter = () => {
-    setHover(true);
-    const v = videoRef.current;
-    if (v) {
-      v.currentTime = startTime;
-      void v.play().catch(() => {});
-    }
-  };
-  const handleLeave = () => {
-    setHover(false);
-    const v = videoRef.current;
-    if (v) {
-      v.pause();
-      v.currentTime = startTime;
-    }
-  };
-
   return (
     <figure
       className="group cursor-pointer"
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
       onClick={onOpen}
     >
       <div className="relative aspect-[4/5] overflow-hidden bg-muted">
-        <video
-          ref={videoRef}
-          src={item.video}
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          onLoadedMetadata={(e) => {
-            const v = e.currentTarget;
-            v.currentTime = startTime;
-          }}
-          className="absolute inset-0 h-full w-full object-cover"
+        <img
+          src={item.image}
+          alt={item.title}
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1500ms] group-hover:scale-105"
         />
-        <div className={`absolute inset-0 bg-background/0 transition-colors duration-500 ${hover ? 'bg-background/20' : ''}`} />
-        <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${hover ? 'opacity-100' : 'opacity-0'}`}>
+        <div className="absolute inset-0 bg-background/0 transition-colors duration-500 group-hover:bg-background/20" />
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 group-hover:opacity-100">
           <span className="rounded-full border border-foreground/60 bg-background/40 px-5 py-2 text-xs uppercase tracking-widest text-foreground backdrop-blur-sm">
             ▶ Watch
           </span>
