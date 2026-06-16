@@ -9,7 +9,7 @@ export function Footer() {
   const isContact = pathname === "/contact";
   return (
     <footer className="border-t border-border bg-background">
-      <div className="mx-auto max-w-[1500px] px-6 py-20 md:px-10">
+      <div className={`mx-auto max-w-[1500px] px-6 md:px-10 ${isContact ? "py-8" : "py-20"}`}>
         {!isContact && (
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-6">
@@ -80,7 +80,7 @@ export function Footer() {
         )}
 
 
-        <div className="mt-20 flex flex-col items-start justify-between gap-6 border-t border-border pt-8 md:flex-row md:items-center">
+        <div className={`flex flex-col items-start justify-between gap-6 border-t border-border pt-8 md:flex-row md:items-center ${!isContact ? "mt-20" : ""}`}>
           <img src={logoAsset.url} alt="Veesually" className="h-[150px] w-auto" />
           <p className="text-xs text-muted-foreground">
             Veesually · Lagos, Nigeria · Founded by Ajoku Victory · © {new Date().getFullYear()}

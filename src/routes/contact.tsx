@@ -61,7 +61,7 @@ function ContactPage() {
         </h1>
       </section>
 
-      <section className="mx-auto grid max-w-[1500px] gap-16 px-6 pb-20 md:grid-cols-12 md:px-10 md:pb-32">
+      <section className="mx-auto grid max-w-[1500px] gap-16 px-6 pb-8 md:grid-cols-12 md:px-10 md:pb-12">
         <div className="md:col-span-5">
           <p className="eyebrow">Direct</p>
           <ul className="mt-6 space-y-5 text-lg">
