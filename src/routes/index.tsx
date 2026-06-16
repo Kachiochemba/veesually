@@ -46,35 +46,16 @@ function Index() {
 }
 
 function Hero() {
-  const isMobile = useIsMobile();
-  const reducedMotion = usePrefersReducedMotion();
   const posterUrl = "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1920&q=80";
-  const useImage = isMobile || reducedMotion;
   return (
     <section className="relative flex h-[100svh] min-h-[640px] w-full items-end overflow-hidden">
-      {useImage ? (
-        <img
-          src={posterUrl}
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover scale-105"
-        />
-      ) : (
-        <video
-          className="absolute inset-0 h-full w-full object-cover scale-105"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          disableRemotePlayback
-          poster={posterUrl}
-        >
-          <source
-            src="https://cdn.coverr.co/videos/coverr-a-camera-on-a-tripod-7457/1080p.mp4"
-            type="video/mp4"
-          />
-        </video>
-      )}
+      <img
+        src={posterUrl}
+        alt=""
+        fetchPriority="high"
+        decoding="async"
+        className="absolute inset-0 h-full w-full object-cover scale-105"
+      />
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background" />
 
       <div className="relative z-10 mx-auto w-full max-w-[1500px] px-6 pb-14 md:px-10 md:pb-24">
