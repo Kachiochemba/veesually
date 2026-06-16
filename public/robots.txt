@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://veesually.lovable.app/sitemap.xml

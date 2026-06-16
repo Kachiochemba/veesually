@@ -10,10 +10,27 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact | VEESUALLY" },
-      { name: "description", content: "Start a project with Veesually. Reach out by WhatsApp, email, or the contact form." },
+      { name: "description", content: "Start a project with Veesually and reach out via WhatsApp or email to discuss your cinematic videography needs in Lagos and beyond." },
       { property: "og:title", content: "Contact | VEESUALLY" },
-      { property: "og:description", content: "Let's create something exceptional." },
+      { property: "og:description", content: "Start a project with Veesually and reach out via WhatsApp or email to discuss your cinematic videography needs in Lagos and beyond." },
+      { property: "og:url", content: "https://veesually.lovable.app/contact" },
     ],
+    links: [{ rel: "canonical", href: "https://veesually.lovable.app/contact" }],
+    scripts: [{
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        name: "VEESUALLY",
+        description: "Premium videography and visual storytelling studio based in Lagos, Nigeria.",
+        url: "https://veesually.lovable.app",
+        telephone: "+2348146304928",
+        email: "ajokuvictory0032@gmail.com",
+        address: { "@type": "PostalAddress", addressLocality: "Lagos", addressCountry: "NG" },
+        areaServed: "Lagos, Nigeria",
+        founder: { "@type": "Person", name: "Ajoku Victory" },
+      }),
+    }],
   }),
   component: ContactPage,
 });
@@ -138,8 +155,9 @@ function ContactPage() {
           <Field label="Email" name="email" type="email" error={errors.email} />
 
           <div>
-            <label className="eyebrow block">Project Type</label>
+            <label htmlFor="contact-type" className="eyebrow block">Project Type</label>
             <select
+              id="contact-type"
               name="type"
               defaultValue=""
               className="mt-3 w-full border-0 border-b border-border bg-transparent py-3 text-base outline-none focus:border-accent"
@@ -153,8 +171,9 @@ function ContactPage() {
           </div>
 
           <div>
-            <label className="eyebrow block">Tell us about the project</label>
+            <label htmlFor="contact-message" className="eyebrow block">Tell us about the project</label>
             <textarea
+              id="contact-message"
               name="message"
               rows={5}
               className="mt-3 w-full resize-none border-0 border-b border-border bg-transparent py-3 text-base outline-none focus:border-accent"
@@ -175,10 +194,12 @@ function ContactPage() {
 }
 
 function Field({ label, name, type = "text", error }: { label: string; name: string; type?: string; error?: string }) {
+  const id = `contact-${name}`;
   return (
     <div>
-      <label className="eyebrow block">{label}</label>
+      <label htmlFor={id} className="eyebrow block">{label}</label>
       <input
+        id={id}
         name={name}
         type={type}
         className="mt-3 w-full border-0 border-b border-border bg-transparent py-3 text-base outline-none focus:border-accent"

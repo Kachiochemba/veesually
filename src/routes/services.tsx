@@ -8,9 +8,29 @@ export const Route = createFileRoute("/services")({
       { title: "Services | VEESUALLY" },
       { name: "description", content: "Event coverage, corporate videography, fashion & retail content, product films, social media content, and wedding films." },
       { property: "og:title", content: "Services | VEESUALLY" },
-      { property: "og:description", content: "Full-service videography and content creation for premium brands." },
+      { property: "og:description", content: "Full-service videography and content creation for premium brands: events, corporate, fashion, product, social, and wedding films." },
+      { property: "og:url", content: "https://veesually.lovable.app/services" },
       { property: "og:image", content: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1600&q=80" },
     ],
+    links: [{ rel: "canonical", href: "https://veesually.lovable.app/services" }],
+    scripts: [{
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": SERVICES.map((s) => ({
+          "@type": "Service",
+          name: s.title,
+          description: s.desc,
+          serviceType: s.title,
+          areaServed: "Lagos, Nigeria",
+          provider: {
+            "@type": "Organization",
+            name: "VEESUALLY",
+            url: "https://veesually.lovable.app",
+          },
+        })),
+      }),
+    }],
   }),
   component: ServicesPage,
 });

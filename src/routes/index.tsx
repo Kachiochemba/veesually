@@ -12,9 +12,11 @@ export const Route = createFileRoute("/")({
       { title: "VEESUALLY | Cinematic Videography & Content Creation" },
       { name: "description", content: "A premium videography and content studio. We help brands, organizations, and events tell their story through cinematic visual content." },
       { property: "og:title", content: "VEESUALLY | Cinematic Videography & Content Creation" },
-      { property: "og:description", content: "Visual storytelling that brings brands to life. Event, fashion, corporate, product, and wedding films." },
+      { property: "og:description", content: "Visual storytelling that brings brands to life. Event, fashion, corporate, product, and wedding films by Ajoku Victory in Lagos." },
+      { property: "og:url", content: "https://veesually.lovable.app/" },
       { property: "og:image", content: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600&q=80" },
     ],
+    links: [{ rel: "canonical", href: "https://veesually.lovable.app/" }],
   }),
   component: Index,
 });
@@ -201,10 +203,13 @@ function Showreel() {
         />
         <div className="absolute inset-0 flex items-center justify-center">
           <button
+            type="button"
             onClick={toggle}
+            aria-label={playing ? "Pause showreel video" : "Play showreel video"}
+            aria-pressed={playing}
             className="flex h-24 w-24 items-center justify-center rounded-full border border-foreground/40 bg-background/30 backdrop-blur transition-all hover:scale-110 hover:border-accent hover:text-accent md:h-32 md:w-32"
           >
-            {playing ? <Pause size={28} /> : <Play size={28} className="ml-1" />}
+            {playing ? <Pause size={28} aria-hidden="true" /> : <Play size={28} aria-hidden="true" className="ml-1" />}
           </button>
         </div>
       </div>

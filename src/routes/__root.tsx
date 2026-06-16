@@ -72,11 +72,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "VEESUALLY | Visual Storytelling That Brings Brands To Life" },
       { name: "description", content: "Veesually is a premium videography and content creation studio crafting cinematic visual stories for fashion, luxury retail, corporate and cultural brands." },
-      { name: "author", content: "Veesually" },
+      { name: "author", content: "Ajoku Victory" },
       { name: "theme-color", content: "#1a1a1a" },
       { property: "og:title", content: "VEESUALLY | Visual Storytelling That Brings Brands To Life" },
-      { property: "og:description", content: "Cinematic videography, content creation, and visual storytelling by Oghenetejiri Etaghene." },
+      { property: "og:description", content: "Cinematic videography, content creation, and visual storytelling by Ajoku Victory, founder of Veesually in Lagos, Nigeria." },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "VEESUALLY" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
@@ -86,6 +87,33 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              name: "VEESUALLY",
+              url: "https://veesually.lovable.app",
+              description: "Premium videography and visual storytelling studio based in Lagos, Nigeria.",
+              founder: { "@type": "Person", name: "Ajoku Victory" },
+              areaServed: "Lagos, Nigeria",
+              sameAs: [
+                "https://instagram.com/veesually_",
+                "https://tiktok.com/@veesually_",
+              ],
+            },
+            {
+              "@type": "WebSite",
+              name: "VEESUALLY",
+              url: "https://veesually.lovable.app",
+            },
+          ],
+        }),
       },
     ],
   }),
