@@ -40,7 +40,10 @@ export function VideoWithToggle({
   };
 
   useEffect(() => {
-    if (isMobile || !autoPlayOnDesktop) return;
+    if (!autoPlayOnDesktop) return;
+    if (typeof window === "undefined") return;
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    if (mobile) return;
     const v = videoRef.current;
     if (!v) return;
     v.play().then(() => {
@@ -52,7 +55,7 @@ export function VideoWithToggle({
       if (hideTimer.current) window.clearTimeout(hideTimer.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isMobile, autoPlayOnDesktop]);
+  }, [autoPlayOnDesktop]);
 
   const toggle = () => {
     const v = videoRef.current;
