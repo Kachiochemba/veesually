@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SERVICES, FEATURED, TESTIMONIALS, CLIENTS, SITE } from "@/data/site";
-import { Play } from "lucide-react";
+import { Play, Pause } from "lucide-react";
 import { useReveal } from "@/hooks/useReveal";
 import ownerImage from "@/assets/ajoku-victory.jpg.asset.json";
+import showreelVideo from "@/assets/showreel-featured.mp4.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
