@@ -145,7 +145,7 @@ function FeaturedArticle({ p, i }: { p: (typeof FEATURED)[number]; i: number }) 
               loop
               playsInline
               autoPlay
-              className="h-full w-full object-cover object-[center_30%] transition-transform duration-[1500ms] group-hover:scale-105"
+              className="h-full w-full object-cover transition-transform duration-[1500ms] group-hover:scale-105"
             />
           ) : (
             <img
