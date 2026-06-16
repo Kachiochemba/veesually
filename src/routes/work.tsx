@@ -123,12 +123,13 @@ function WorkCard({
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hover, setHover] = useState(false);
+  const startTime = (item as any).thumbnailStart ?? 0;
 
   const handleEnter = () => {
     setHover(true);
     const v = videoRef.current;
     if (v) {
-      v.currentTime = 0;
+      v.currentTime = startTime;
       void v.play().catch(() => {});
     }
   };
@@ -137,7 +138,7 @@ function WorkCard({
     const v = videoRef.current;
     if (v) {
       v.pause();
-      v.currentTime = 0;
+      v.currentTime = startTime;
     }
   };
 
@@ -156,6 +157,10 @@ function WorkCard({
           loop
           playsInline
           preload="metadata"
+          onLoadedMetadata={(e) => {
+            const v = e.currentTarget;
+            v.currentTime = startTime;
+          }}
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className={`absolute inset-0 bg-background/0 transition-colors duration-500 ${hover ? 'bg-background/20' : ''}`} />
