@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SERVICES, FEATURED, TESTIMONIALS, CLIENTS, SITE } from "@/data/site";
 import { useReveal } from "@/hooks/useReveal";
@@ -149,6 +150,9 @@ function FeaturedWork() {
 
 function FeaturedArticle({ p, i }: { p: (typeof FEATURED)[number]; i: number }) {
   const ref = useReveal<HTMLElement>();
+  const isMobile = useIsMobile();
+  const reducedMotion = usePrefersReducedMotion();
+  const useImage = isMobile || reducedMotion;
   return (
     <article
       ref={ref}
@@ -158,12 +162,16 @@ function FeaturedArticle({ p, i }: { p: (typeof FEATURED)[number]; i: number }) 
     >
       <div className="md:col-span-7">
         <div className="group relative aspect-[16/10] overflow-hidden bg-muted">
-          <img
-            src={p.image}
-            alt={p.title}
-            loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-[1500ms] group-hover:scale-105"
-          />
+          {useImage ? (
+            <img
+              src={p.image}
+              alt={p.title}
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-[1500ms] group-hover:scale-105"
+            />
+          ) : (
+            <FeaturedClip src={p.video} poster={p.image} title={p.title} />
+          )}
         </div>
       </div>
       <div className="md:col-span-5 md:px-6">
@@ -174,6 +182,49 @@ function FeaturedArticle({ p, i }: { p: (typeof FEATURED)[number]; i: number }) 
         <p className="mt-4 text-sm text-muted-foreground">{p.desc}</p>
       </div>
     </article>
+  );
+}
+
+function FeaturedClip({ src, poster, title }: { src: string; poster: string; title: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const START = 5;
+  const END = 10;
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const seekStart = () => {
+      try { v.currentTime = START; } catch {}
+    };
+    const onLoaded = () => {
+      seekStart();
+      v.play().catch(() => {});
+    };
+    const onTimeUpdate = () => {
+      if (v.currentTime >= END) seekStart();
+    };
+    v.addEventListener("loadedmetadata", onLoaded);
+    v.addEventListener("timeupdate", onTimeUpdate);
+    return () => {
+      v.removeEventListener("loadedmetadata", onLoaded);
+      v.removeEventListener("timeupdate", onTimeUpdate);
+    };
+  }, [src]);
+
+  return (
+    <video
+      ref={videoRef}
+      className="h-full w-full object-cover transition-transform duration-[1500ms] group-hover:scale-105"
+      muted
+      playsInline
+      autoPlay
+      preload="metadata"
+      disableRemotePlayback
+      poster={poster}
+      aria-label={title}
+    >
+      <source src={src} type="video/mp4" />
+    </video>
   );
 }
 
