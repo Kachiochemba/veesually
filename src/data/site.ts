@@ -1,3 +1,6 @@
+import tusVideo from "@/assets/tus-ireland.mp4.asset.json";
+import tusThumb from "@/assets/tus-ireland-thumb.jpg.asset.json";
+
 export const SITE = {
   name: "VEESUALLY",
   tagline: "Visual Storytelling That Brings Brands To Life.",
@@ -88,7 +91,8 @@ export const FEATURED = [
     title: "TUS Ireland Pre-Departure Orientation",
     category: "Events" as Category,
     desc: "Event recap and promotional content documenting sessions on Visa Success Guide, Accommodation Readiness, Employment Insights, Student Success Planning, and International Education Preparation.",
-    image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1600&q=80",
+    image: tusThumb.url,
+    video: tusVideo.url,
   },
   {
     title: "Ruby Luxe Fashion & Luxury Brand",
