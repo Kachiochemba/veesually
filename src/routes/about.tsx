@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useReveal } from "@/hooks/useReveal";
 import { INDUSTRIES } from "@/data/site";
+import ownerImage from "@/assets/ajoku-victory.jpg.asset.json";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
