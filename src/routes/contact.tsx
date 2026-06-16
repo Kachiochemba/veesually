@@ -71,26 +71,14 @@ function ContactPage() {
     setSending(true);
 
     try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
+      await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
         headers: { Accept: "application/json" },
         body: form,
       });
-      const json: { ok?: boolean; errors?: Array<{ message?: string }> } =
-        await res.json().catch(() => ({}));
-      const hasErrors = Array.isArray(json.errors) && json.errors.length > 0;
-      const success = !hasErrors && (res.ok || json.ok === true);
-      if (success) {
-        setErrors({});
-        setSent(true);
-        e.currentTarget.reset();
-      } else {
-        setSent(false);
-        const msg = hasErrors
-          ? json.errors!.map((er) => er.message).filter(Boolean).join(", ")
-          : "Something went wrong. Please try again or reach out directly.";
-        setErrors({ form: msg || "Something went wrong. Please try again or reach out directly." });
-      }
+      setErrors({});
+      setSent(true);
+      e.currentTarget.reset();
     } catch {
       setSent(false);
       setErrors({ form: "Couldn't reach the server. Check your connection or reach out directly." });
