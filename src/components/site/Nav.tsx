@@ -32,7 +32,7 @@ export function Nav() {
     >
       <div className="mx-auto flex max-w-[1500px] items-center justify-between px-6 py-5 md:px-10">
         <Link to="/" className="flex items-center" aria-label="Veesually home">
-          <img src={logoAsset.url} alt="Veesually" className="block h-auto w-[64px] md:w-[96px]" />
+          <img src={logoAsset.url} alt="Veesually" className="block h-auto w-[192px] md:w-[288px]" />
         </Link>
 
         <nav className="hidden items-center gap-10 md:flex">
