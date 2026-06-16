@@ -4,6 +4,7 @@ import { SERVICES, FEATURED, TESTIMONIALS, CLIENTS, SITE } from "@/data/site";
 import { useReveal } from "@/hooks/useReveal";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { useInView } from "@/hooks/use-in-view";
 import { VideoWithToggle } from "@/components/VideoWithToggle";
 import ownerImage from "@/assets/ajoku-victory.jpg.asset.json";
 import showreelVideo from "@/assets/luxury-watches.mp4.asset.json";
