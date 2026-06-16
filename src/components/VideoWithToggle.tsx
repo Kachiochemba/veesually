@@ -120,12 +120,14 @@ export function VideoWithToggle({
     if (!v) return;
     setPreload("auto");
     if (v.paused) {
+      userPausedRef.current = false;
       v.play().then(() => {
         setStarted(true);
         setPlaying(true);
         revealIcon();
       }).catch(() => {});
     } else {
+      userPausedRef.current = true;
       v.pause();
       setPlaying(false);
       revealIcon();
