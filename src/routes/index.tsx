@@ -172,26 +172,10 @@ function FeaturedArticle({ p, i }: { p: (typeof FEATURED)[number]; i: number }) 
 }
 
 function Showreel() {
-  const videoRef = useReveal<HTMLVideoElement>();
-  const [playing, setPlaying] = useState(true);
-
-  const toggle = () => {
-    const v = videoRef.current;
-    if (!v) return;
-    if (v.paused) {
-      v.play();
-      setPlaying(true);
-    } else {
-      v.pause();
-      setPlaying(false);
-    }
-  };
-
   return (
     <Section title="Featured Showreel" subtitle="Reel 2026">
       <div className="group relative aspect-video w-full overflow-hidden bg-muted">
         <video
-          ref={videoRef}
           src={showreelVideo.url}
           autoPlay
           muted
@@ -199,17 +183,6 @@ function Showreel() {
           playsInline
           className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <button
-            type="button"
-            onClick={toggle}
-            aria-label={playing ? "Pause showreel video" : "Play showreel video"}
-            aria-pressed={playing}
-            className="flex h-24 w-24 items-center justify-center rounded-full border border-foreground/40 bg-background/30 backdrop-blur transition-all hover:scale-110 hover:border-accent hover:text-accent md:h-32 md:w-32"
-          >
-            {playing ? <Pause size={28} aria-hidden="true" /> : <Play size={28} aria-hidden="true" className="ml-1" />}
-          </button>
-        </div>
       </div>
     </Section>
   );
