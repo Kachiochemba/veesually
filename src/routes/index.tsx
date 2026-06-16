@@ -140,24 +140,12 @@ function FeaturedArticle({ p, i }: { p: (typeof FEATURED)[number]; i: number }) 
     >
       <div className="md:col-span-7">
         <div className="group relative aspect-[16/10] overflow-hidden bg-muted">
-          {"video" in p && (p as { video?: string }).video ? (
-            <video
-              src={(p as { video: string }).video}
-              poster={p.image}
-              muted
-              loop
-              playsInline
-              autoPlay
-              className="h-full w-full object-cover transition-transform duration-[1500ms] group-hover:scale-105"
-            />
-          ) : (
-            <img
-              src={p.image}
-              alt={p.title}
-              loading="lazy"
-              className="h-full w-full object-cover transition-transform duration-[1500ms] group-hover:scale-105"
-            />
-          )}
+          <img
+            src={p.image}
+            alt={p.title}
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-[1500ms] group-hover:scale-105"
+          />
         </div>
       </div>
       <div className="md:col-span-5 md:px-6">
