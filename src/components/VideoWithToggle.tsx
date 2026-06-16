@@ -11,6 +11,10 @@ type Props = {
   /** Autoplay on desktop only (mobile always waits for tap). */
   autoPlayOnDesktop?: boolean;
   ariaLabel?: string;
+  /** CSS object-position for the video (e.g. "center 70%"). */
+  objectPosition?: string;
+  /** Loop a sub-range of the video, e.g. { start: 5, end: 10 }. */
+  clipRange?: { start: number; end: number };
 };
 
 export function VideoWithToggle({
