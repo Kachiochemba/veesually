@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SERVICES, FEATURED, TESTIMONIALS, CLIENTS, SITE } from "@/data/site";
 import { useReveal } from "@/hooks/useReveal";
