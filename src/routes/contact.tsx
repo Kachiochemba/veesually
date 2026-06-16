@@ -57,7 +57,8 @@ function ContactPage() {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = new FormData(e.currentTarget);
+    const formEl = e.currentTarget;
+    const form = new FormData(formEl);
     const data = Object.fromEntries(form) as Record<string, string>;
     const result = schema.safeParse(data);
     if (!result.success) {
@@ -70,21 +71,40 @@ function ContactPage() {
     setSent(false);
     setSending(true);
 
-    try {
-      await fetch(FORMSPREE_ENDPOINT, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: form,
-      });
+    const delays = [0, 1000, 3000];
+    let delivered = false;
+    for (const wait of delays) {
+      if (wait) await new Promise((r) => setTimeout(r, wait));
+      try {
+        await fetch(FORMSPREE_ENDPOINT, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: form,
+        });
+        delivered = true;
+        break;
+      } catch {
+        // network failure — retry
+      }
+    }
+
+    if (!delivered && typeof navigator !== "undefined" && "sendBeacon" in navigator) {
+      try {
+        delivered = navigator.sendBeacon(FORMSPREE_ENDPOINT, form);
+      } catch {
+        delivered = false;
+      }
+    }
+
+    if (delivered) {
       setErrors({});
       setSent(true);
-      e.currentTarget.reset();
-    } catch {
+      formEl.reset();
+    } else {
       setSent(false);
-      setErrors({ form: "Couldn't reach the server. Check your connection or reach out directly." });
-    } finally {
-      setSending(false);
+      setErrors({ form: "We couldn't send right now. Reach out on WhatsApp or email so we don't miss you." });
     }
+    setSending(false);
   };
 
   return (
@@ -185,7 +205,24 @@ function ContactPage() {
             {sent ? "Sent ✓" : sending ? "Sending…" : "Send enquiry →"}
           </button>
           {sent && <p className="text-xs text-accent">Message sent. We'll be in touch shortly.</p>}
-          {errors.form && <p className="text-xs text-destructive">{errors.form}</p>}
+          {errors.form && (
+            <div className="space-y-3">
+              <p className="text-xs text-destructive">{errors.form}</p>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href={`https://wa.me/${SITE.phoneIntl}?text=${encodeURIComponent("Hi Veesually, I'd like to discuss a project.")}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={BTN_PRIMARY}
+                >
+                  WhatsApp us
+                </a>
+                <a href={`mailto:${SITE.email}`} className={BTN_GHOST}>
+                  Send email
+                </a>
+              </div>
+            </div>
+          )}
         </form>
       </section>
     </div>
