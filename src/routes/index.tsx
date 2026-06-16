@@ -237,6 +237,8 @@ function Showreel() {
         loop
         muted
         autoPlayOnDesktop
+        clipRange={{ start: 5, end: 10 }}
+        objectPosition="center 70%"
         ariaLabel="featured showreel"
         className="aspect-video w-full overflow-hidden bg-muted"
       />

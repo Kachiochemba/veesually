@@ -11,6 +11,10 @@ type Props = {
   /** Autoplay on desktop only (mobile always waits for tap). */
   autoPlayOnDesktop?: boolean;
   ariaLabel?: string;
+  /** CSS object-position for the video (e.g. "center 70%"). */
+  objectPosition?: string;
+  /** Loop a sub-range of the video, e.g. { start: 5, end: 10 }. */
+  clipRange?: { start: number; end: number };
 };
 
 export function VideoWithToggle({
@@ -21,6 +25,8 @@ export function VideoWithToggle({
   muted = true,
   autoPlayOnDesktop = false,
   ariaLabel = "Video",
+  objectPosition,
+  clipRange,
 }: Props) {
   const reducedMotion = usePrefersReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -49,16 +55,38 @@ export function VideoWithToggle({
     const v = videoRef.current;
     if (!v) return;
     setPreload("auto");
+    const seekStart = () => {
+      if (clipRange) {
+        try { v.currentTime = clipRange.start; } catch {}
+      }
+    };
+    const onLoaded = () => seekStart();
+    v.addEventListener("loadedmetadata", onLoaded);
+    if (v.readyState >= 1) seekStart();
     v.play().then(() => {
       setStarted(true);
       setPlaying(true);
-      // No icon flash on autoplay — only show on hover/tap.
     }).catch(() => {});
     return () => {
+      v.removeEventListener("loadedmetadata", onLoaded);
       if (hideTimer.current) window.clearTimeout(hideTimer.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoPlayOnDesktop, reducedMotion]);
+
+  useEffect(() => {
+    if (!clipRange) return;
+    const v = videoRef.current;
+    if (!v) return;
+    const onTime = () => {
+      if (v.currentTime >= clipRange.end) {
+        try { v.currentTime = clipRange.start; } catch {}
+      }
+    };
+    v.addEventListener("timeupdate", onTime);
+    return () => v.removeEventListener("timeupdate", onTime);
+  }, [clipRange]);
+
 
   const toggle = () => {
     const v = videoRef.current;
@@ -106,6 +134,7 @@ export function VideoWithToggle({
         onPlay={() => { setStarted(true); setPlaying(true); }}
         onPause={() => { setPlaying(false); revealIcon(); }}
         className="absolute inset-0 h-full w-full object-cover"
+        style={objectPosition ? { objectPosition } : undefined}
       />
 
       {bigPlayButton && (
