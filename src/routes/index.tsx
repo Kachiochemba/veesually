@@ -1,8 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SERVICES, FEATURED, TESTIMONIALS, CLIENTS, SITE } from "@/data/site";
 import { useReveal } from "@/hooks/useReveal";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { VideoWithToggle } from "@/components/VideoWithToggle";
 import ownerImage from "@/assets/ajoku-victory.jpg.asset.json";
 import showreelVideo from "@/assets/luxury-watches.mp4.asset.json";
+import showreelPoster from "@/assets/luxury-watches-thumb-5s.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -41,21 +44,31 @@ function Index() {
 }
 
 function Hero() {
+  const isMobile = useIsMobile();
+  const posterUrl = "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1920&q=80";
   return (
     <section className="relative flex h-[100svh] min-h-[640px] w-full items-end overflow-hidden">
-      <video
-        className="absolute inset-0 h-full w-full object-cover scale-105"
-        autoPlay
-        muted
-        loop
-        playsInline
-        poster="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1920&q=80"
-      >
-        <source
-          src="https://cdn.coverr.co/videos/coverr-a-camera-on-a-tripod-7457/1080p.mp4"
-          type="video/mp4"
+      {isMobile ? (
+        <img
+          src={posterUrl}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover scale-105"
         />
-      </video>
+      ) : (
+        <video
+          className="absolute inset-0 h-full w-full object-cover scale-105"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster={posterUrl}
+        >
+          <source
+            src="https://cdn.coverr.co/videos/coverr-a-camera-on-a-tripod-7457/1080p.mp4"
+            type="video/mp4"
+          />
+        </video>
+      )}
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background" />
 
       <div className="relative z-10 mx-auto w-full max-w-[1500px] px-6 pb-14 md:px-10 md:pb-24">
@@ -162,19 +175,19 @@ function FeaturedArticle({ p, i }: { p: (typeof FEATURED)[number]; i: number }) 
 function Showreel() {
   return (
     <Section title="Featured Showreel" subtitle="Reel 2026">
-      <div className="group relative aspect-video w-full overflow-hidden bg-muted">
-        <video
-          src={showreelVideo.url}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-      </div>
+      <VideoWithToggle
+        src={showreelVideo.url}
+        poster={showreelPoster.url}
+        loop
+        muted
+        autoPlayOnDesktop
+        ariaLabel="featured showreel"
+        className="aspect-video w-full overflow-hidden bg-muted"
+      />
     </Section>
   );
 }
+
 
 function AboutSnippet() {
   const ref = useReveal<HTMLDivElement>();

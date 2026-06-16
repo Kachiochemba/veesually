@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { FEATURED, type Category } from "@/data/site";
+import { VideoWithToggle } from "@/components/VideoWithToggle";
 
 export const Route = createFileRoute("/work")({
   head: () => ({
@@ -115,13 +116,12 @@ function WorkPage() {
             className="relative w-full max-w-6xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <video
+            <VideoWithToggle
               src={active.video}
               poster={active.image}
-              controls
-              autoPlay
-              playsInline
-              className="h-auto max-h-[85vh] w-full bg-black"
+              autoPlayOnDesktop
+              ariaLabel={active.title}
+              className="aspect-video w-full overflow-hidden bg-black"
             />
             <div className="mt-4 flex items-baseline justify-between">
               <span className="font-display text-xl">{active.title}</span>
