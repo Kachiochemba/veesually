@@ -25,12 +25,12 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <a className="hover:text-accent" href={`tel:${SITE.phone}`}>
-                  {SITE.phone}
+                  Phone
                 </a>
               </li>
               <li>
                 <a className="hover:text-accent break-all" href={`mailto:${SITE.email}`}>
-                  {SITE.email}
+                  Email
                 </a>
               </li>
             </ul>

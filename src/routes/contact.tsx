@@ -66,12 +66,12 @@ function ContactPage() {
           <ul className="mt-6 space-y-5 text-lg">
             <li>
               <a href={`tel:${SITE.phone}`} className="group flex items-center gap-3 hover:text-accent">
-                <Phone size={18} className="text-accent" /> {SITE.phone}
+                <Phone size={18} className="text-accent" /> Phone
               </a>
             </li>
             <li>
-              <a href={`mailto:${SITE.email}`} className="group flex items-center gap-3 break-all hover:text-accent">
-                <Mail size={18} className="text-accent" /> {SITE.email}
+              <a href={`mailto:${SITE.email}`} className="group flex items-center gap-3 hover:text-accent">
+                <Mail size={18} className="text-accent" /> Email
               </a>
             </li>
             <li>
