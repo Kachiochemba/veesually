@@ -51,7 +51,7 @@ function Hero() {
         <p className="eyebrow fade-up">Veesually — Est. by Oghenetejiri Etaghene</p>
         <h1 className="fade-up mt-6 max-w-5xl font-display text-[clamp(2.75rem,8vw,7.5rem)] leading-[0.9]">
           Visual storytelling<br />
-          that brings brands to life.
+          that brings brands <span className="text-accent">to life.</span>
         </h1>
         <p className="fade-up mt-8 max-w-xl text-base text-muted-foreground md:text-lg">
           {SITE.tagline} We craft powerful visual experiences through videography,
