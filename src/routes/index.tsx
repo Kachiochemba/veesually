@@ -33,7 +33,7 @@ function Hero() {
   return (
     <section className="relative flex h-[100svh] min-h-[640px] w-full items-end overflow-hidden">
       <video
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover blur-[6px] scale-105"
         autoPlay
         muted
         loop
@@ -45,7 +45,7 @@ function Hero() {
           type="video/mp4"
         />
       </video>
-      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/20 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background" />
 
       <div className="relative z-10 mx-auto w-full max-w-[1500px] px-6 pb-20 md:px-10 md:pb-28">
         <p className="eyebrow fade-up">Veesually — Est. by Oghenetejiri Etaghene</p>
