@@ -18,7 +18,7 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <p className="eyebrow">404 — Not found</p>
+        <p className="eyebrow">404 · Not found</p>
         <h1 className="mt-4 font-display text-6xl">Lost in the cut.</h1>
         <p className="mt-4 text-sm text-muted-foreground">
           The page you're looking for doesn't exist or has been moved.
@@ -70,11 +70,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "VEESUALLY — Visual Storytelling That Brings Brands To Life" },
+      { title: "VEESUALLY | Visual Storytelling That Brings Brands To Life" },
       { name: "description", content: "Veesually is a premium videography and content creation studio crafting cinematic visual stories for fashion, luxury retail, corporate and cultural brands." },
       { name: "author", content: "Veesually" },
       { name: "theme-color", content: "#1a1a1a" },
-      { property: "og:title", content: "VEESUALLY — Visual Storytelling That Brings Brands To Life" },
+      { property: "og:title", content: "VEESUALLY | Visual Storytelling That Brings Brands To Life" },
       { property: "og:description", content: "Cinematic videography, content creation, and visual storytelling by Oghenetejiri Etaghene." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

@@ -5,9 +5,9 @@ import { useReveal } from "@/hooks/useReveal";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services — VEESUALLY" },
+      { title: "Services | VEESUALLY" },
       { name: "description", content: "Event coverage, corporate videography, fashion & retail content, product films, social media content, and wedding films." },
-      { property: "og:title", content: "Services — VEESUALLY" },
+      { property: "og:title", content: "Services | VEESUALLY" },
       { property: "og:description", content: "Full-service videography and content creation for premium brands." },
       { property: "og:image", content: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1600&q=80" },
     ],
@@ -19,7 +19,7 @@ function ServicesPage() {
   return (
     <div className="pt-24 md:pt-32">
       <section className="mx-auto max-w-[1500px] px-6 pb-12 md:px-10 md:pb-16">
-        <p className="eyebrow">— Capabilities</p>
+        <p className="eyebrow">Capabilities</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.95] md:text-8xl">
           Crafted for brands that <span className="text-accent">care</span> how they're seen.
         </h1>
@@ -58,7 +58,7 @@ function ServiceArticle({ s, i }: { s: (typeof SERVICES)[number]; i: number }) {
         </div>
       </div>
       <div className="md:col-span-6 md:px-6">
-        <p className="font-mono text-xs text-accent">{s.n} — Service</p>
+        <p className="font-mono text-xs text-accent">{s.n} · Service</p>
         <h2 className="mt-4 font-display text-4xl md:text-5xl">{s.title}</h2>
         <p className="mt-6 text-base text-muted-foreground md:text-lg">{s.desc}</p>
         <Link

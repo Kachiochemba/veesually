@@ -6,9 +6,9 @@ import ownerImage from "@/assets/ajoku-victory.jpg.asset.json";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — VEESUALLY" },
+      { title: "About | VEESUALLY" },
       { name: "description", content: "Meet Oghenetejiri Etaghene, the videographer and visual storyteller behind Veesually." },
-      { property: "og:title", content: "About — VEESUALLY" },
+      { property: "og:title", content: "About | VEESUALLY" },
       { property: "og:description", content: "Two years crafting cinematic visual content for fashion, faith, education, and corporate clients." },
       { property: "og:image", content: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1600&q=80" },
     ],
@@ -21,7 +21,7 @@ function AboutPage() {
   return (
     <div className="pt-24 md:pt-32">
       <section className="mx-auto max-w-[1500px] px-6 pb-16 md:px-10 md:pb-20">
-        <p className="eyebrow">— The Studio</p>
+        <p className="eyebrow">The Studio</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.95] md:text-8xl">
           Meet Ajoku Victory,<br />the creative behind <span className="text-accent">Veesually.</span>
         </h1>
