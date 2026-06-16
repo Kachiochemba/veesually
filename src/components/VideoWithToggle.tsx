@@ -10,8 +10,6 @@ type Props = {
   muted?: boolean;
   /** Autoplay on desktop only (mobile always waits for tap). */
   autoPlayOnDesktop?: boolean;
-  /** Show native controls once playing (useful in modals). */
-  nativeControls?: boolean;
   ariaLabel?: string;
 };
 
@@ -22,7 +20,6 @@ export function VideoWithToggle({
   loop = false,
   muted = true,
   autoPlayOnDesktop = false,
-  nativeControls = false,
   ariaLabel = "Video",
 }: Props) {
   const isMobile = useIsMobile();
@@ -42,14 +39,13 @@ export function VideoWithToggle({
     scheduleHide();
   };
 
-  // Desktop autoplay on mount
   useEffect(() => {
     if (isMobile || !autoPlayOnDesktop) return;
     const v = videoRef.current;
     if (!v) return;
     v.play().then(() => {
-      setPlaying(true);
       setStarted(true);
+      setPlaying(true);
       scheduleHide();
     }).catch(() => {});
     return () => {
@@ -63,8 +59,8 @@ export function VideoWithToggle({
     if (!v) return;
     if (v.paused) {
       v.play().then(() => {
-        setPlaying(true);
         setStarted(true);
+        setPlaying(true);
         revealIcon();
       }).catch(() => {});
     } else {
@@ -81,6 +77,7 @@ export function VideoWithToggle({
       className={`relative ${className}`}
       onMouseMove={started ? revealIcon : undefined}
       onTouchStart={started ? revealIcon : undefined}
+      onClick={started ? toggle : undefined}
     >
       <video
         ref={videoRef}
@@ -89,9 +86,7 @@ export function VideoWithToggle({
         loop={loop}
         muted={muted}
         playsInline
-        controls={nativeControls && started && !isMobile ? true : false}
-        onClick={started ? toggle : undefined}
-        onPlay={() => { setPlaying(true); setStarted(true); revealIcon(); }}
+        onPlay={() => { setStarted(true); setPlaying(true); revealIcon(); }}
         onPause={() => { setPlaying(false); revealIcon(); }}
         className="absolute inset-0 h-full w-full object-cover"
       />
@@ -99,7 +94,7 @@ export function VideoWithToggle({
       {showPosterOverlay && (
         <button
           type="button"
-          onClick={toggle}
+          onClick={(e) => { e.stopPropagation(); toggle(); }}
           aria-label={`Play ${ariaLabel}`}
           className="absolute inset-0 z-10 flex items-center justify-center bg-black/20"
         >
@@ -110,10 +105,8 @@ export function VideoWithToggle({
       )}
 
       {started && (
-        <button
-          type="button"
-          onClick={toggle}
-          aria-label={playing ? "Pause video" : "Play video"}
+        <div
+          aria-hidden={!iconVisible}
           className={`pointer-events-none absolute inset-0 z-10 flex items-center justify-center transition-opacity duration-300 ${
             iconVisible ? "opacity-100" : "opacity-0"
           }`}
@@ -121,7 +114,7 @@ export function VideoWithToggle({
           <span className="grid h-16 w-16 place-items-center rounded-full bg-black/50 text-white backdrop-blur-sm">
             {playing ? <Pause className="h-7 w-7" fill="currentColor" /> : <Play className="h-7 w-7 translate-x-0.5" fill="currentColor" />}
           </span>
-        </button>
+        </div>
       )}
     </div>
   );
