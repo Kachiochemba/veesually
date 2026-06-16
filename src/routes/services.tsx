@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SERVICES } from "@/data/site";
+import { SERVICES, TOOLS } from "@/data/site";
 import { useReveal } from "@/hooks/useReveal";
 
 export const Route = createFileRoute("/services")({
@@ -23,6 +23,13 @@ function ServicesPage() {
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.95] md:text-8xl">
           Crafted for brands that <span className="text-accent">care</span> how they're seen.
         </h1>
+      </section>
+
+      <section className="mx-auto max-w-[1500px] px-6 pb-10 md:px-10 md:pb-12">
+        <p className="eyebrow">Tools</p>
+        <p className="mt-3 text-sm text-muted-foreground md:text-base">
+          {TOOLS.join(" · ")}
+        </p>
       </section>
 
       <section className="mx-auto max-w-[1500px] px-6 pb-20 md:px-10 md:pb-32">

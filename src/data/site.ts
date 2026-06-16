@@ -1,6 +1,9 @@
 export const SITE = {
   name: "VEESUALLY",
   tagline: "Visual Storytelling That Brings Brands To Life.",
+  founder: "Ajoku Victory",
+  role: "Videographer · Content Creator · Visual Storyteller · Founder of Veesually",
+  location: "Lagos, Nigeria",
   phone: "08146304928",
   phoneIntl: "2348146304928",
   email: "ajokuvictory0032@gmail.com",
@@ -12,35 +15,47 @@ export const SERVICES = [
   {
     n: "01",
     title: "Event Coverage",
-    desc: "Capturing conferences, seminars, launches, conventions, and special events with cinematic precision.",
+    desc: "Conferences, seminars, orientations, launches, and conventions captured with cinematic precision.",
     image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1200&q=80",
   },
   {
     n: "02",
     title: "Corporate Videography",
-    desc: "Professional content for businesses, organizations, and institutions that needs to feel considered.",
+    desc: "Considered content for businesses, institutions, and organizations that need to feel premium.",
     image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1200&q=80",
   },
   {
     n: "03",
     title: "Fashion & Retail Content",
-    desc: "Visual content for fashion brands, jewelry stores, watch vendors, fabric retailers, and luxury businesses.",
+    desc: "Visual content for luxury fabrics, laces, asoebi, jewelry, wristwatches, native caps, and fashion houses.",
     image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&q=80",
   },
   {
     n: "04",
     title: "Product Videography",
-    desc: "High-quality product showcases engineered to increase engagement and drive sales.",
+    desc: "High-quality product films for jewelry vendors, watch vendors, and luxury retail businesses.",
     image: "https://images.unsplash.com/photo-1606293459339-aa5d34a7b0e1?w=1200&q=80",
   },
   {
     n: "05",
     title: "Social Media Content",
-    desc: "Short-form content optimized for Instagram, TikTok, and the modern attention economy.",
+    desc: "Short-form content optimized for Instagram, TikTok, WhatsApp, and the modern attention economy.",
     image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=1200&q=80",
   },
   {
     n: "06",
+    title: "Promotional Videos",
+    desc: "Brand visibility campaigns, launches, and recap films built to convert attention into action.",
+    image: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1200&q=80",
+  },
+  {
+    n: "07",
+    title: "Interviews & Testimonials",
+    desc: "Founder, customer, and convention interviews — composed, lit, and edited with intention.",
+    image: "https://images.unsplash.com/photo-1554774853-aae0a22c8aa4?w=1200&q=80",
+  },
+  {
+    n: "08",
     title: "Wedding & Pre-Wedding Films",
     desc: "Cinematic storytelling for life's biggest moments — preserved as the films they deserve to be.",
     image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80",
@@ -72,31 +87,31 @@ export const FEATURED = [
   {
     title: "TUS Ireland Pre-Departure Orientation",
     category: "Events" as Category,
-    desc: "Event recap content documenting visa preparation, accommodation readiness, employment guidance, student success planning, and educational sessions preparing students for life in Ireland.",
+    desc: "Event recap and promotional content documenting sessions on Visa Success Guide, Accommodation Readiness, Employment Insights, Student Success Planning, and International Education Preparation.",
     image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1600&q=80",
   },
   {
     title: "Ruby Luxe Fashion & Luxury Brand",
     category: "Fashion" as Category,
-    desc: "Promotional content showcasing luxury fabrics, jewelry, wristwatches, native caps, and fashion accessories while covering the grand opening.",
+    desc: "Promotional content and event coverage featuring luxury fabrics, laces, asoebi materials, jewelry, wristwatches, and native caps — across the grand opening and ongoing social content.",
     image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80",
   },
   {
-    title: "Fashion Brand Launch Events",
+    title: "Fashion Brand Launches",
     category: "Retail" as Category,
-    desc: "Brand launches, customer experiences, interviews, and promotional highlights captured for retail businesses.",
+    desc: "Launch coverage, customer experience videos, interviews, promotional content, and social campaigns produced for retail and fashion businesses.",
     image: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1600&q=80",
   },
   {
     title: "Church Conventions & Youth Conferences",
     category: "Events" as Category,
-    desc: "Highlight videos, interviews, worship coverage, promotional content, and event recaps produced end-to-end.",
+    desc: "Highlight videos, promotional content, interviews, worship coverage, convention recaps, and youth engagement films — produced end-to-end.",
     image: "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=1600&q=80",
   },
   {
-    title: "Jewelry & Watch Campaigns",
+    title: "Luxury Product Campaigns",
     category: "Product Videos" as Category,
-    desc: "Luxury product films designed for social media engagement and long-term brand awareness.",
+    desc: "High-quality product films for jewelry vendors, watch vendors, and luxury retail businesses — designed for social engagement and long-term brand awareness.",
     image: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1600&q=80",
   },
 ];
@@ -128,7 +143,7 @@ export const TESTIMONIALS = [
     industry: "Faith Organization",
     project: "Convention Highlight Reel",
     quote:
-      "Tejiri captured the spirit of the convention in a way photographs simply could not. Our congregation was moved.",
+      "Ajoku captured the spirit of the convention in a way photographs simply could not. Our congregation was moved.",
   },
   {
     name: "Ruby Luxe",
@@ -155,4 +170,25 @@ export const CLIENTS = [
   "Youth Conference",
   "Boardroom Series",
   "Sunset Vows",
+];
+
+export const TOOLS = [
+  "Adobe Premiere Pro",
+  "CapCut",
+  "Mobile Videography",
+  "Content Planning",
+  "Storyboarding",
+  "Audio Editing",
+];
+
+export const INDUSTRIES = [
+  "Corporate",
+  "Education",
+  "Fashion",
+  "Luxury Retail",
+  "Faith",
+  "Conferences",
+  "Startups",
+  "Marketing Agencies",
+  "Social Brands",
 ];

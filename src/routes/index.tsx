@@ -56,7 +56,7 @@ function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background" />
 
       <div className="relative z-10 mx-auto w-full max-w-[1500px] px-6 pb-14 md:px-10 md:pb-24">
-        <p className="eyebrow fade-up">Veesually — Est. by Oghenetejiri Etaghene</p>
+        <p className="eyebrow fade-up">Veesually — Est. by Ajoku Victory · Lagos, Nigeria</p>
         <h1 className="fade-up mt-6 max-w-5xl font-display text-[clamp(2.75rem,8vw,7.5rem)] leading-[0.9]">
           Visual storytelling<br />
           that brings brands <span className="text-accent">to life.</span>
@@ -178,21 +178,21 @@ function Showreel() {
 function AboutSnippet() {
   const ref = useReveal<HTMLDivElement>();
   return (
-    <Section title="Behind the lens." subtitle="About">
+    <Section title="Behind the lens — Ajoku Victory." subtitle="About">
       <div ref={ref} className="reveal grid gap-12 md:grid-cols-12">
         <div className="md:col-span-5">
           <div className="aspect-[4/5] overflow-hidden bg-muted">
             <img
               src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1200&q=80"
-              alt="Oghenetejiri Etaghene"
+              alt="Ajoku Victory"
               className="h-full w-full object-cover"
             />
           </div>
         </div>
         <div className="md:col-span-7 md:pl-8">
           <p className="text-base text-muted-foreground md:text-lg">
-            Oghenetejiri Etaghene is a videographer and visual storyteller crafting
-            cinematic content for brands, fashion, faith, and culture.
+            Lagos-based videographer building Veesually into a premium
+            visual-storytelling studio for brands that care how they're seen.
           </p>
           <Link to="/about" className={`mt-8 ${TEXT_LINK}`}>
             Read full story →
