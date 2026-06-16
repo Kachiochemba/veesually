@@ -51,12 +51,12 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  className="hover:text-accent"
+                  className="inline-flex items-center gap-2 hover:text-accent"
                   href={`https://tiktok.com/@${SITE.tiktok}`}
                   target="_blank"
                   rel="noreferrer"
                 >
-                  TikTok / @{SITE.tiktok}
+                  <TikTokIcon size={14} /> @{SITE.tiktok}
                 </a>
               </li>
             </ul>

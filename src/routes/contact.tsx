@@ -86,7 +86,7 @@ function ContactPage() {
             </li>
             <li>
               <a href={`https://tiktok.com/@${SITE.tiktok}`} target="_blank" rel="noreferrer" className="group flex items-center gap-3 hover:text-accent">
-                <span className="grid h-[18px] w-[18px] place-items-center font-mono text-xs text-accent">T</span> TikTok / @{SITE.tiktok}
+                <TikTokIcon size={18} className="text-accent" /> @{SITE.tiktok}
               </a>
             </li>
             <li>
