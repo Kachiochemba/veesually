@@ -33,7 +33,7 @@ function Hero() {
   return (
     <section className="relative flex h-[100svh] min-h-[640px] w-full items-end overflow-hidden">
       <video
-        className="absolute inset-0 h-full w-full object-cover blur-[1.5px] scale-105"
+        className="absolute inset-0 h-full w-full object-cover blur-[1px] scale-105"
         autoPlay
         muted
         loop
@@ -51,7 +51,7 @@ function Hero() {
         <p className="eyebrow fade-up">Veesually — Est. by Oghenetejiri Etaghene</p>
         <h1 className="fade-up mt-6 max-w-5xl font-display text-[clamp(2.75rem,8vw,7.5rem)] leading-[0.9]">
           Visual storytelling<br />
-          that brings brands <span className="italic text-accent">to life.</span>
+          that brings brands to life.
         </h1>
         <p className="fade-up mt-8 max-w-xl text-base text-muted-foreground md:text-lg">
           {SITE.tagline} We craft powerful visual experiences through videography,
