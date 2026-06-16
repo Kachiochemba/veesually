@@ -76,7 +76,7 @@ export function Footer() {
         </div>
 
         <div className="mt-20 flex flex-col items-start justify-between gap-6 border-t border-border pt-8 md:flex-row md:items-center">
-          <img src={logoAsset.url} alt="Veesually" className="h-[200px] w-auto" />
+          <img src={logoAsset.url} alt="Veesually" className="h-[150px] w-auto" />
           <p className="text-xs text-muted-foreground">
             Veesually · Lagos, Nigeria · Founded by Ajoku Victory · © {new Date().getFullYear()}
           </p>
