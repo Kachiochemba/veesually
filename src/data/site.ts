@@ -1,6 +1,7 @@
 import tusVideo from "@/assets/tus-ireland.mp4.asset.json";
 import fashionLaunchVideo from "@/assets/fashion-brand-launch.mp4.asset.json";
 import luxuryWatchesVideo from "@/assets/luxury-watches.mp4.asset.json";
+import traditionalWeddingVideo from "@/assets/traditional-wedding.mp4.asset.json";
 import tusThumb from "@/assets/tus-ireland-thumb.jpg.asset.json";
 
 export const SITE = {
@@ -111,10 +112,11 @@ export const FEATURED = [
     video: luxuryWatchesVideo.url,
   },
   {
-    title: "Church Conventions & Youth Conferences",
-    category: "Events" as Category,
-    desc: "Highlight videos, promotional content, interviews, worship coverage, convention recaps, and youth engagement films — produced end-to-end.",
-    image: "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=1600&q=80",
+    title: "Traditional Wedding Ceremony",
+    category: "Weddings" as Category,
+    desc: "Cinematic documentation of traditional wedding ceremonies — from vibrant cultural rites and family blessings to the elegant reception. Every moment preserved with storytelling precision.",
+    image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&q=80",
+    video: traditionalWeddingVideo.url,
   },
 ];
 
