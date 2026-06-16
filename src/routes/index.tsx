@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { SERVICES, FEATURED, TESTIMONIALS, CLIENTS, SITE } from "@/data/site";
-import { Play } from "lucide-react";
+import { Play, Pause } from "lucide-react";
 import { useReveal } from "@/hooks/useReveal";
 import ownerImage from "@/assets/ajoku-victory.jpg.asset.json";
+import showreelVideo from "@/assets/showreel-featured.mp4.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -170,17 +172,39 @@ function FeaturedArticle({ p, i }: { p: (typeof FEATURED)[number]; i: number }) 
 }
 
 function Showreel() {
+  const videoRef = useReveal<HTMLVideoElement>();
+  const [playing, setPlaying] = useState(true);
+
+  const toggle = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) {
+      v.play();
+      setPlaying(true);
+    } else {
+      v.pause();
+      setPlaying(false);
+    }
+  };
+
   return (
     <Section title="Featured Showreel" subtitle="Reel 2026">
       <div className="group relative aspect-video w-full overflow-hidden bg-muted">
-        <img
-          src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=1920&q=80"
-          alt="Showreel"
-          className="absolute inset-0 h-full w-full object-cover opacity-70 transition-opacity group-hover:opacity-90"
+        <video
+          ref={videoRef}
+          src={showreelVideo.url}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 flex items-center justify-center">
-          <button className="flex h-24 w-24 items-center justify-center rounded-full border border-foreground/40 bg-background/30 backdrop-blur transition-all hover:scale-110 hover:border-accent hover:text-accent md:h-32 md:w-32">
-            <Play size={28} className="ml-1" />
+          <button
+            onClick={toggle}
+            className="flex h-24 w-24 items-center justify-center rounded-full border border-foreground/40 bg-background/30 backdrop-blur transition-all hover:scale-110 hover:border-accent hover:text-accent md:h-32 md:w-32"
+          >
+            {playing ? <Pause size={28} /> : <Play size={28} className="ml-1" />}
           </button>
         </div>
       </div>
