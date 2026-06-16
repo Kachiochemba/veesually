@@ -31,9 +31,8 @@ export function Nav() {
       }`}
     >
       <div className="mx-auto flex max-w-[1500px] items-center justify-between px-6 py-5 md:px-10">
-        <Link to="/" className="group flex items-baseline gap-2">
-          <span className="font-display text-xl tracking-tight">VEESUALLY</span>
-          <span className="h-1 w-1 rounded-full bg-accent transition-all group-hover:w-4" />
+        <Link to="/" className="group flex items-center" aria-label="Veesually home">
+          <img src={logoAsset.url} alt="Veesually" className="h-12 w-auto md:h-14" />
         </Link>
 
         <nav className="hidden items-center gap-10 md:flex">
