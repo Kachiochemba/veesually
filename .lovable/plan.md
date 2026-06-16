@@ -1,34 +1,44 @@
-# Form fix + video polish
+# Site loading + form message fixes
 
-## 1. Contact form: don't show success and error together
-In `src/routes/contact.tsx → onSubmit`:
-- On successful submit, also clear `errors` (currently the previous failed `errors.form` lingers when a retry succeeds — which is what the screenshot shows).
-- On a fresh submit attempt, reset `sent` back to `false` before sending so the success message from a previous send disappears while retrying.
-- Net effect: success ⇒ only "Message sent" shows; failure ⇒ only the error shows; never both.
+## 1. Contact form: false "Something went wrong" after a successful send
 
-## 2. Video improvements (`src/components/VideoWithToggle.tsx`, `src/routes/index.tsx`)
+The form posts to Formspree and currently treats anything that isn't `res.ok` (HTTP 2xx) as a failure. Formspree's AJAX endpoint can return a 200 *with* `{ ok: false, errors: [...] }` (e.g. spam/captcha checks), or a non-2xx status while still delivering the email — both of which produce the red "Something went wrong" message you saw, even though the message arrived.
 
-### Reduced-motion support
-- Add a `usePrefersReducedMotion()` hook (matchMedia `(prefers-reduced-motion: reduce)`).
-- Hero (`src/routes/index.tsx`): when reduced motion is on, render the poster image instead of the autoplay video on both desktop and mobile.
-- `VideoWithToggle`: when reduced motion is on, skip the desktop autoplay effect — the video stays paused on its poster until the user taps/clicks play.
+Change `onSubmit` in `src/routes/contact.tsx` to:
+- Parse the response body as JSON (`await res.json().catch(() => ({}))`).
+- Treat the submission as successful when either `res.ok` is true *or* the JSON body indicates success (`json.ok === true`, or no `errors` array).
+- Only show the error message on a real network failure (the `catch` branch) or when Formspree explicitly returns `errors`.
+- Surface Formspree's error message when present instead of the generic string.
 
-### Improved video loading
-- `VideoWithToggle`: add `preload="metadata"` (so we fetch dimensions + poster only, not the full file) and only flip to `preload="auto"` once the user opts into playback or desktop autoplay fires.
-- Hero desktop video: same `preload="metadata"` + `preload="auto"` after first interaction, and add `disableRemotePlayback`.
-- Showreel + work modal: lazy-mount the `<source>` only when ready to play (via the existing `started` gate) so mobile users on a slow connection don't fetch the MP4 just by scrolling past.
+Net effect: a successful submission only shows the green "Message sent" line; the red error only appears on genuine failures.
 
-### Icon hide timing — "Hide on autoplay, show on hover/tap"
-- Remove the initial `scheduleHide()` call on autoplay so the icon never flashes on desktop autoplay.
-- Initial `iconVisible` state starts `false` once autoplay starts (icon hidden by default).
-- Reveal the icon on `mousemove` / `mouseenter` / `touchstart` / `click` over the container, then auto-hide 2s after the last such event.
-- Manual play/pause toggles still reveal the icon (and reset the 2s timer) so the user gets visible feedback for their tap, then it fades.
-- Mobile poster overlay (pre-start) is unchanged — big play button stays until tapped.
+## 2. Videos: load and play only when actually visible
+
+Right now every featured-work `<video>` and the showreel start fetching and playing as soon as the page mounts, even if they're far below the fold. On slower connections this stalls the rest of the page and can leave the hero/poster frames stuck.
+
+- Add a small `useInView` hook (IntersectionObserver, `rootMargin: "200px"`).
+- `FeaturedClip` (`src/routes/index.tsx`): keep `preload="metadata"` + poster, but only call `.play()` / attach the timeupdate-loop listener once the clip enters view. Pause + detach when it leaves view. Drop the `autoPlay` attribute so the browser doesn't kick off playback before the observer fires.
+- `VideoWithToggle` (`src/components/VideoWithToggle.tsx`): same gating for the desktop-autoplay branch — only start playback when the element scrolls into view, and pause when it scrolls out. Manual play/pause via the toggle is unchanged.
+
+This means the homepage paints with just posters, then each clip wakes up as the user scrolls to it.
+
+## 3. Smaller initial network cost
+
+- Hero video (`src/routes/index.tsx`): drop the legacy Coverr placeholder MP4 and just use the existing poster image. The hero is the first paint; a 1080p MP4 from a third-party CDN delays LCP without adding much. Mobile/reduced-motion already shows the image — make desktop use it too unless we have a branded hero clip.
+- Add `decoding="async"` and explicit `width`/`height` (or `aspect-ratio` via the existing classes) to the featured `<img>` posters so the browser can reserve space and avoid layout shift while videos warm up.
+- Add `<link rel="preconnect">` for the asset CDN (`/__l5e/...` origin) in `src/routes/__root.tsx` `head().links` so the first asset request doesn't pay a fresh TLS handshake.
+
+## 4. Small polish
+
+- Add a `loading="lazy"` + `decoding="async"` pass on the remaining Unsplash images in `ServicesTeaser` / `AboutSnippet` for consistency.
+- In `VideoWithToggle`, when the page is hidden (`document.visibilitychange`), pause any playing video so background tabs stop decoding frames.
+
+## Out of scope
+No backend, schema, or data changes. No new dependencies.
 
 ## Files touched
-- `src/routes/contact.tsx` — clear `errors` and reset `sent` in `onSubmit`.
-- `src/hooks/use-prefers-reduced-motion.ts` (new) — matchMedia hook.
-- `src/components/VideoWithToggle.tsx` — reduced-motion gate, `preload` strategy, revised icon visibility logic.
-- `src/routes/index.tsx` — hero respects reduced motion + tightened `preload` on the desktop hero video.
-
-No backend or data changes.
+- `src/routes/contact.tsx` — success/error logic.
+- `src/routes/index.tsx` — `FeaturedClip` in-view gating, hero simplification, image attrs.
+- `src/components/VideoWithToggle.tsx` — in-view gating, visibility pause.
+- `src/hooks/use-in-view.ts` — new tiny IntersectionObserver hook.
+- `src/routes/__root.tsx` — preconnect link.
