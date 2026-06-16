@@ -4,6 +4,7 @@ import { SERVICES, FEATURED, TESTIMONIALS, CLIENTS, SITE } from "@/data/site";
 import { useReveal } from "@/hooks/useReveal";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { useInView } from "@/hooks/use-in-view";
 import { VideoWithToggle } from "@/components/VideoWithToggle";
 import ownerImage from "@/assets/ajoku-victory.jpg.asset.json";
 import showreelVideo from "@/assets/luxury-watches.mp4.asset.json";
@@ -46,35 +47,16 @@ function Index() {
 }
 
 function Hero() {
-  const isMobile = useIsMobile();
-  const reducedMotion = usePrefersReducedMotion();
   const posterUrl = "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1920&q=80";
-  const useImage = isMobile || reducedMotion;
   return (
     <section className="relative flex h-[100svh] min-h-[640px] w-full items-end overflow-hidden">
-      {useImage ? (
-        <img
-          src={posterUrl}
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover scale-105"
-        />
-      ) : (
-        <video
-          className="absolute inset-0 h-full w-full object-cover scale-105"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          disableRemotePlayback
-          poster={posterUrl}
-        >
-          <source
-            src="https://cdn.coverr.co/videos/coverr-a-camera-on-a-tripod-7457/1080p.mp4"
-            type="video/mp4"
-          />
-        </video>
-      )}
+      <img
+        src={posterUrl}
+        alt=""
+        fetchPriority="high"
+        decoding="async"
+        className="absolute inset-0 h-full w-full object-cover scale-105"
+      />
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background" />
 
       <div className="relative z-10 mx-auto w-full max-w-[1500px] px-6 pb-14 md:px-10 md:pb-24">
@@ -186,7 +168,9 @@ function FeaturedArticle({ p, i }: { p: (typeof FEATURED)[number]; i: number }) 
 }
 
 function FeaturedClip({ src, poster, title }: { src: string; poster: string; title: string }) {
+  const wrapRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const inView = useInView(wrapRef, { rootMargin: "200px" });
   const START = 5;
   const END = 10;
 
@@ -196,35 +180,41 @@ function FeaturedClip({ src, poster, title }: { src: string; poster: string; tit
     const seekStart = () => {
       try { v.currentTime = START; } catch {}
     };
-    const onLoaded = () => {
-      seekStart();
-      v.play().catch(() => {});
-    };
     const onTimeUpdate = () => {
       if (v.currentTime >= END) seekStart();
     };
-    v.addEventListener("loadedmetadata", onLoaded);
-    v.addEventListener("timeupdate", onTimeUpdate);
-    return () => {
-      v.removeEventListener("loadedmetadata", onLoaded);
-      v.removeEventListener("timeupdate", onTimeUpdate);
-    };
-  }, [src]);
+    if (inView) {
+      const start = () => {
+        if (v.readyState >= 1) seekStart();
+        v.play().catch(() => {});
+      };
+      v.addEventListener("loadedmetadata", start);
+      v.addEventListener("timeupdate", onTimeUpdate);
+      start();
+      return () => {
+        v.removeEventListener("loadedmetadata", start);
+        v.removeEventListener("timeupdate", onTimeUpdate);
+      };
+    } else {
+      v.pause();
+    }
+  }, [inView, src]);
 
   return (
-    <video
-      ref={videoRef}
-      className="h-full w-full object-cover transition-transform duration-[1500ms] group-hover:scale-105"
-      muted
-      playsInline
-      autoPlay
-      preload="metadata"
-      disableRemotePlayback
-      poster={poster}
-      aria-label={title}
-    >
-      <source src={src} type="video/mp4" />
-    </video>
+    <div ref={wrapRef} className="h-full w-full">
+      <video
+        ref={videoRef}
+        className="h-full w-full object-cover transition-transform duration-[1500ms] group-hover:scale-105"
+        muted
+        playsInline
+        preload="metadata"
+        disableRemotePlayback
+        poster={poster}
+        aria-label={title}
+      >
+        <source src={src} type="video/mp4" />
+      </video>
+    </div>
   );
 }
 

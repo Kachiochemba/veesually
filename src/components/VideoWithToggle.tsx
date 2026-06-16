@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Play, Pause } from "lucide-react";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { useInView } from "@/hooks/use-in-view";
 
 type Props = {
   src: string;
@@ -29,12 +30,15 @@ export function VideoWithToggle({
   clipRange,
 }: Props) {
   const reducedMotion = usePrefersReducedMotion();
+  const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const inView = useInView(containerRef, { rootMargin: "200px" });
   const [playing, setPlaying] = useState(false);
   const [started, setStarted] = useState(false);
   const [preload, setPreload] = useState<"metadata" | "auto">("metadata");
   const [iconVisible, setIconVisible] = useState(false);
   const hideTimer = useRef<number | null>(null);
+  const userPausedRef = useRef(false);
 
   const scheduleHide = () => {
     if (hideTimer.current) window.clearTimeout(hideTimer.current);
@@ -54,6 +58,11 @@ export function VideoWithToggle({
     if (mobile) return;
     const v = videoRef.current;
     if (!v) return;
+    if (!inView) {
+      if (!v.paused) v.pause();
+      return;
+    }
+    if (userPausedRef.current) return;
     setPreload("auto");
     const seekStart = () => {
       if (clipRange) {
@@ -69,10 +78,9 @@ export function VideoWithToggle({
     }).catch(() => {});
     return () => {
       v.removeEventListener("loadedmetadata", onLoaded);
-      if (hideTimer.current) window.clearTimeout(hideTimer.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoPlayOnDesktop, reducedMotion]);
+  }, [autoPlayOnDesktop, reducedMotion, inView]);
 
   useEffect(() => {
     if (!clipRange) return;
@@ -87,18 +95,39 @@ export function VideoWithToggle({
     return () => v.removeEventListener("timeupdate", onTime);
   }, [clipRange]);
 
+  useEffect(() => {
+    const onVis = () => {
+      const v = videoRef.current;
+      if (!v) return;
+      if (document.hidden) {
+        if (!v.paused) v.pause();
+      } else if (inView && autoPlayOnDesktop && !reducedMotion && !userPausedRef.current) {
+        v.play().catch(() => {});
+      }
+    };
+    document.addEventListener("visibilitychange", onVis);
+    return () => {
+      document.removeEventListener("visibilitychange", onVis);
+      if (hideTimer.current) window.clearTimeout(hideTimer.current);
+    };
+  }, [inView, autoPlayOnDesktop, reducedMotion]);
+
+
+
 
   const toggle = () => {
     const v = videoRef.current;
     if (!v) return;
     setPreload("auto");
     if (v.paused) {
+      userPausedRef.current = false;
       v.play().then(() => {
         setStarted(true);
         setPlaying(true);
         revealIcon();
       }).catch(() => {});
     } else {
+      userPausedRef.current = true;
       v.pause();
       setPlaying(false);
       revealIcon();
@@ -117,6 +146,7 @@ export function VideoWithToggle({
 
   return (
     <div
+      ref={containerRef}
       className={`relative ${className}`}
       onMouseMove={handlePointer}
       onMouseEnter={handlePointer}
