@@ -1,0 +1,93 @@
+import { Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
+
+const links = [
+  { to: "/", label: "Index" },
+  { to: "/work", label: "Work" },
+  { to: "/services", label: "Services" },
+  { to: "/about", label: "About" },
+  { to: "/contact", label: "Contact" },
+] as const;
+
+export function Nav() {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "backdrop-blur-xl bg-background/70 border-b border-border"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="mx-auto flex max-w-[1500px] items-center justify-between px-6 py-5 md:px-10">
+        <Link to="/" className="group flex items-baseline gap-2">
+          <span className="font-display text-xl tracking-tight">VEESUALLY</span>
+          <span className="h-1 w-1 rounded-full bg-accent transition-all group-hover:w-4" />
+        </Link>
+
+        <nav className="hidden items-center gap-10 md:flex">
+          {links.map((l) => (
+            <Link
+              key={l.to}
+              to={l.to}
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              activeProps={{ className: "text-foreground" }}
+              activeOptions={{ exact: l.to === "/" }}
+            >
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+
+        <Link
+          to="/contact"
+          className="hidden rounded-full border border-border px-5 py-2 text-xs uppercase tracking-widest transition-all hover:border-accent hover:text-accent md:inline-block"
+        >
+          Book a project
+        </Link>
+
+        <button
+          aria-label="Toggle menu"
+          onClick={() => setOpen((v) => !v)}
+          className="md:hidden"
+        >
+          {open ? <X size={22} /> : <Menu size={22} />}
+        </button>
+      </div>
+
+      {open && (
+        <div className="border-t border-border bg-background md:hidden">
+          <div className="flex flex-col gap-1 px-6 py-6">
+            {links.map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                onClick={() => setOpen(false)}
+                className="py-3 font-display text-2xl"
+              >
+                {l.label}
+              </Link>
+            ))}
+            <Link
+              to="/contact"
+              onClick={() => setOpen(false)}
+              className="mt-4 rounded-full border border-border px-5 py-3 text-center text-xs uppercase tracking-widest"
+            >
+              Book a project
+            </Link>
+          </div>
+        </div>
+      )}
+    </header>
+  );
+}
