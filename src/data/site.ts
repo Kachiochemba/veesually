@@ -40,13 +40,13 @@ export const SERVICES = [
     n: "04",
     title: "Product Videography",
     desc: "High-quality product films for jewelry vendors, watch vendors, and luxury retail businesses.",
-    image: "https://images.unsplash.com/photo-1770777352681-2fb5f5677d0f?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1779001643179-b162d33d4ee4?w=1200&q=80",
   },
   {
     n: "05",
     title: "Social Media Content",
     desc: "Short-form content optimized for Instagram, TikTok, WhatsApp, and the modern attention economy.",
-    image: "https://images.unsplash.com/photo-1661332306744-70f9ed1a7f40?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1745848413099-13adc3aaf308?w=1200&q=80",
   },
   {
     n: "06",
