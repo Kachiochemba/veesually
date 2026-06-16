@@ -168,7 +168,9 @@ function FeaturedArticle({ p, i }: { p: (typeof FEATURED)[number]; i: number }) 
 }
 
 function FeaturedClip({ src, poster, title }: { src: string; poster: string; title: string }) {
+  const wrapRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const inView = useInView(wrapRef, { rootMargin: "200px" });
   const START = 5;
   const END = 10;
 
@@ -178,35 +180,41 @@ function FeaturedClip({ src, poster, title }: { src: string; poster: string; tit
     const seekStart = () => {
       try { v.currentTime = START; } catch {}
     };
-    const onLoaded = () => {
-      seekStart();
-      v.play().catch(() => {});
-    };
     const onTimeUpdate = () => {
       if (v.currentTime >= END) seekStart();
     };
-    v.addEventListener("loadedmetadata", onLoaded);
-    v.addEventListener("timeupdate", onTimeUpdate);
-    return () => {
-      v.removeEventListener("loadedmetadata", onLoaded);
-      v.removeEventListener("timeupdate", onTimeUpdate);
-    };
-  }, [src]);
+    if (inView) {
+      const start = () => {
+        if (v.readyState >= 1) seekStart();
+        v.play().catch(() => {});
+      };
+      v.addEventListener("loadedmetadata", start);
+      v.addEventListener("timeupdate", onTimeUpdate);
+      start();
+      return () => {
+        v.removeEventListener("loadedmetadata", start);
+        v.removeEventListener("timeupdate", onTimeUpdate);
+      };
+    } else {
+      v.pause();
+    }
+  }, [inView, src]);
 
   return (
-    <video
-      ref={videoRef}
-      className="h-full w-full object-cover transition-transform duration-[1500ms] group-hover:scale-105"
-      muted
-      playsInline
-      autoPlay
-      preload="metadata"
-      disableRemotePlayback
-      poster={poster}
-      aria-label={title}
-    >
-      <source src={src} type="video/mp4" />
-    </video>
+    <div ref={wrapRef} className="h-full w-full">
+      <video
+        ref={videoRef}
+        className="h-full w-full object-cover transition-transform duration-[1500ms] group-hover:scale-105"
+        muted
+        playsInline
+        preload="metadata"
+        disableRemotePlayback
+        poster={poster}
+        aria-label={title}
+      >
+        <source src={src} type="video/mp4" />
+      </video>
+    </div>
   );
 }
 
