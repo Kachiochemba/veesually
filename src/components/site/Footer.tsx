@@ -1,13 +1,16 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { SITE } from "@/data/site";
 import { Instagram } from "lucide-react";
 import { TikTokIcon } from "@/components/icons/TikTokIcon";
 import logoAsset from "@/assets/veesually-logo.png.asset.json";
 
 export function Footer() {
+  const { pathname } = useLocation();
+  const isContact = pathname === "/contact";
   return (
     <footer className="border-t border-border bg-background">
       <div className="mx-auto max-w-[1500px] px-6 py-20 md:px-10">
+        {!isContact && (
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-6">
             <h2 className="font-display text-5xl leading-[0.95] md:text-7xl">
