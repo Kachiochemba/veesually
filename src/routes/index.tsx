@@ -32,8 +32,8 @@ function Index() {
       <ServicesTeaser />
       <FeaturedWork />
       <Showreel />
-      <AboutSnippet />
       <Testimonials />
+      <AboutSnippet />
     </>
   );
 }
