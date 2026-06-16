@@ -1,5 +1,6 @@
 import tusVideo from "@/assets/tus-ireland.mp4.asset.json";
 import fashionLaunchVideo from "@/assets/fashion-brand-launch.mp4.asset.json";
+import luxuryWatchesVideo from "@/assets/luxury-watches.mp4.asset.json";
 import tusThumb from "@/assets/tus-ireland-thumb.jpg.asset.json";
 
 export const SITE = {
@@ -103,10 +104,11 @@ export const FEATURED = [
     video: fashionLaunchVideo.url,
   },
   {
-    title: "Fashion Brand Launches",
-    category: "Retail" as Category,
-    desc: "Launch coverage, customer experience videos, interviews, promotional content, and social campaigns produced for retail and fashion businesses.",
-    image: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1600&q=80",
+    title: "Luxury Wristwatch Editorial",
+    category: "Product Videos" as Category,
+    desc: "Cinematic product films for luxury watch vendors, jewelry brands, and premium retailers — crafted to highlight detail, craftsmanship, and desire.",
+    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1600&q=80",
+    video: luxuryWatchesVideo.url,
   },
   {
     title: "Church Conventions & Youth Conferences",
