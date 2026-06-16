@@ -1,7 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
 import { SERVICES, FEATURED, TESTIMONIALS, CLIENTS, SITE } from "@/data/site";
-import { Play, Pause } from "lucide-react";
 import { useReveal } from "@/hooks/useReveal";
 import ownerImage from "@/assets/ajoku-victory.jpg.asset.json";
 import showreelVideo from "@/assets/luxury-watches.mp4.asset.json";
