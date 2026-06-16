@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useReveal } from "@/hooks/useReveal";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -14,16 +15,17 @@ export const Route = createFileRoute("/about")({
 });
 
 function AboutPage() {
+  const bodyRef = useReveal<HTMLDivElement>();
   return (
-    <div className="pt-32">
-      <section className="mx-auto max-w-[1500px] px-6 pb-20 md:px-10">
-        <p className="eyebrow">— About / The Studio</p>
+    <div className="pt-24 md:pt-32">
+      <section className="mx-auto max-w-[1500px] px-6 pb-16 md:px-10 md:pb-20">
+        <p className="eyebrow">— The Studio</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.95] md:text-8xl">
-          Meet the creative<br />behind <span className="italic text-accent">Veesually.</span>
+          Meet the creative<br />behind <span className="text-accent">Veesually.</span>
         </h1>
       </section>
 
-      <section className="mx-auto grid max-w-[1500px] gap-12 px-6 pb-32 md:grid-cols-12 md:px-10">
+      <section className="mx-auto grid max-w-[1500px] gap-12 px-6 pb-20 md:grid-cols-12 md:px-10 md:pb-32">
         <div className="md:col-span-5">
           <div className="aspect-[4/5] overflow-hidden bg-muted">
             <img
@@ -38,7 +40,7 @@ function AboutPage() {
           </div>
         </div>
 
-        <div className="md:col-span-7 md:pl-8">
+        <div ref={bodyRef} className="reveal md:col-span-7 md:pl-8">
           <p className="text-lg leading-relaxed text-foreground md:text-xl">
             Oghenetejiri Etaghene is a videographer, content creator, and visual storyteller
             with over two years of experience creating engaging visual content for brands,
@@ -66,7 +68,7 @@ function AboutPage() {
 
           <Link
             to="/contact"
-            className="mt-12 inline-block border-b border-foreground pb-1 text-sm uppercase tracking-widest hover:border-accent hover:text-accent"
+            className="mt-12 inline-block border-b border-foreground pb-1 text-sm uppercase tracking-widest transition-colors hover:border-accent hover:text-accent"
           >
             Work with us →
           </Link>
