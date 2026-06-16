@@ -1,82 +1,57 @@
+## Site-wide polish & dedupe
 
-# VEESUALLY — Premium Portfolio Website
+Apply your selected improvements consistently to every page (mobile + desktop), and remove duplicated content/patterns.
 
-A cinematic, Apple/Nike-inspired creative agency site for videographer Oghenetejiri Etaghene. Black/white/charcoal palette with subtle gold accents, bold modern type, generous whitespace, and film-grade motion.
+### 1. Hero video — remove blur
+- `src/routes/index.tsx`: drop `blur-[1px]` from the hero `<video>` so footage stays sharp. Keep the dark gradient overlay for legibility.
 
-## Visual System
+### 2. Remove clutter (site-wide)
+- **Scroll indicator**: remove the bottom-right `ArrowDown + "Scroll"` chip from the home hero.
+- **Eyebrow numbering**: remove the `— 01 / …`, `— 02 / …` numeric prefixes everywhere.
+  - Home: simplify `Section` so the eyebrow becomes just `— {subtitle}` and drop the `index` prop from all five calls.
+  - About / Services / Work / Contact: change `— About / The Studio` → `— The Studio`, `— Services / Capabilities` → `— Capabilities`, `— Work / 2024–2026` → `— Selected Work`, `— Contact / Start a Project` → `— Start a Project`.
 
-- **Palette** (tokens in `src/styles.css`):
-  - `--background` near-black `oklch(0.12 0 0)`
-  - `--foreground` warm white `oklch(0.97 0.005 80)`
-  - `--muted` charcoal `oklch(0.22 0 0)`
-  - `--accent` subtle gold `oklch(0.78 0.12 80)` (used sparingly: hairlines, hover states, small marks)
-  - `--border` `oklch(1 0 0 / 0.08)`
-- **Typography**: Display = Fraunces or Instrument Serif for editorial moments; UI = Inter Tight / Geist for sans. Loaded via `<link>` in `__root.tsx` head. Massive hero type, tight tracking, uppercase eyebrow labels with monospace numerals for section numbering (01 — Work, 02 — About…).
-- **Motion**: Subtle on-scroll fades, marquee for client logos, hover scale on project tiles, looping muted hero video. Use CSS + Motion-style transitions (no heavy libs required initially).
+### 3. Tighten mobile padding
+- Section vertical rhythm currently jumps from `py-24` to `md:py-32`. Reduce mobile to `py-16` (keep `md:py-28`).
+- Page-top spacing on About/Services/Work/Contact: `pt-32` → `pt-24 md:pt-32`.
+- Hero bottom padding on home: `pb-20 md:pb-28` → `pb-14 md:pb-24`.
+- Article spacing in Services & FeaturedWork: `space-y-24 md:space-y-32` → `space-y-16 md:space-y-28`.
 
-## Route Architecture
+### 4. Unify button styles
+Standardize on two reusable classes used everywhere:
+- **Primary (pill, solid)**: `rounded-full bg-foreground px-7 py-4 text-xs uppercase tracking-[0.2em] text-background transition-transform hover:scale-[1.02]`
+- **Ghost (pill, outlined)**: `rounded-full border border-border px-7 py-4 text-xs uppercase tracking-[0.2em] hover:border-accent hover:text-accent`
+- **Text link**: `border-b border-foreground pb-1 text-sm uppercase tracking-widest hover:border-accent hover:text-accent`
 
-Separate routes (each with own `head()` meta) — not hash anchors:
+Apply consistently to: hero CTAs, Contact page CTAs (currently `px-6 py-3` — bump to match), Contact form submit, Services "Enquire", About "Work with us", Home "All services" / "Read full story".
 
-```
-src/routes/
-  __root.tsx           — nav + footer shell, font links, dark theme
-  index.tsx            — Hero, brief about, services teaser, featured work, showreel, testimonials, CTA
-  work.tsx             — Filterable portfolio gallery (Events, Corporate, Fashion, Retail, Product, Weddings, Interviews, Social)
-  services.tsx         — Full services grid w/ descriptions
-  about.tsx            — Founder story, philosophy, stats
-  contact.tsx          — Form, WhatsApp/Email/Social CTAs
-```
+### 5. Stronger gold accent usage
+- Underline-on-hover (gold) for nav links and text links — already partial; add to footer links and Work filter chips.
+- Bump the active Work filter pill from solid foreground to `border-accent text-accent` for a lighter, more on-brand active state.
+- Use `text-accent` for stat numbers (already), section eyebrow numerals where kept, and the marquee separator ✦ (already).
+- Form inputs: focus underline already `focus:border-accent` — keep, but also give the placeholder label (eyebrow) `text-accent` on focus via `peer` pattern is overkill; instead just leave inputs and ensure the submit button uses primary style.
 
-## Page Breakdown
+### 6. Subtle scroll-reveal animations
+- Add a single utility `.reveal` in `src/styles.css` that starts at `opacity-0 translate-y-2` and animates to visible on `.is-visible`.
+- Add a tiny `useReveal()` hook (IntersectionObserver) in `src/hooks/useReveal.ts`, then apply it to: every `Section` header, each FeaturedWork article, each Services article, About copy block, Testimonial cards, Contact form.
+- Keep existing `.fade-up` on hero text.
 
-**Home (`/`)**
-- Full-viewport hero: silent autoplay looping background video (placeholder MP4 URL via Pexels/Coverr — easily swappable), dark gradient overlay, headline "Visual Storytelling That Brings Brands To Life.", subhead, two CTAs ("View Portfolio" → /work, "Book A Project" → /contact). Scroll indicator at bottom.
-- Brand marquee strip (client/industry names).
-- Section 01 — Services teaser (3 cards + "All services →").
-- Section 02 — Featured Projects (5 large editorial tiles in alternating asymmetric layout, each with cover image, title, category tag, short description).
-- Section 03 — Showreel: large 16:9 video block with play affordance, title "Featured Showreel", caption listing content categories.
-- Section 04 — About snippet: portrait + short bio + "Read more →".
-- Section 05 — Client Experience: testimonial cards (name, industry, project type, quote).
-- Closing CTA: "Let's Create Something Exceptional" → contact.
+### 7. Deduplicate content
+- **"Meet the creative behind Veesually"** appears on both home (`AboutSnippet`) and `/about` with overlapping copy and the same portrait image.
+  - Keep `AboutSnippet` on home as a short teaser but **change the headline** to `Behind the lens.` and trim the paragraph to one sentence; keep the "Read full story →" link as the only path to the full bio.
+  - `/about` keeps the full headline, full bio, stats, and values grid.
+- **Showreel vs Work**: Home `Showreel` and `/work` both serve as portfolio entry points. Keep Showreel (it's a single hero video), but remove its caption strip `Events · Corporate · Fashion · Product · Interviews · Reels` since that list is already implied by the Work filter chips and Services grid.
+- **Services list**: home shows 6, `/services` shows all. Already a teaser — no change, but ensure both link styles match (#4).
+- **Italic accent words**: `to life.` on home is now plain text (your earlier instruction). Apply same — remove `italic` class — to `care` (services), `Veesually.` (about), `exceptional.` (contact). Keep them gold via `text-accent`, no italic. This makes the accent treatment consistent across all four page headlines.
+- **Contact info duplication**: footer and `/contact` both list email, phone, Instagram, TikTok. Keep both (expected), but ensure they share the same `SITE` constants (already do) — no code change needed; just verifying nothing diverges.
 
-**Work (`/work`)**
-- Header with section number + title.
-- Filter chips: All, Events, Corporate, Fashion, Retail, Product Videos, Weddings, Interviews, Social Media Reels.
-- Responsive masonry/grid of project tiles with hover reveal (title, category). Click opens a lightweight detail dialog (project description from brief).
+### Files touched
+- `src/routes/index.tsx` (hero blur, scroll chip, Section numbering, AboutSnippet trim, Showreel caption, mobile padding, button classes, reveals)
+- `src/routes/about.tsx` (eyebrow, italic removal, mobile padding, reveals)
+- `src/routes/services.tsx` (eyebrow, italic removal, padding, button classes, reveals)
+- `src/routes/work.tsx` (eyebrow, padding, filter pill active style, reveals)
+- `src/routes/contact.tsx` (eyebrow, italic removal, padding, button class parity)
+- `src/styles.css` (`.reveal` utility)
+- `src/hooks/useReveal.ts` (new IntersectionObserver hook)
 
-**Services (`/services`)**
-- 6 services as numbered editorial rows (alternating image/text), each with description from brief.
-
-**About (`/about`)**
-- Large founder portrait, "Meet The Creative Behind Veesually", full bio, list of focus areas, "2+ Years" stat, value props (Authentic Moments / Emotional Connection / Compelling Narratives).
-
-**Contact (`/contact`)**
-- Headline "Let's Create Something Exceptional".
-- Contact form (name, email, project type select, message) with Zod validation, client-side only — submission opens a prefilled mailto / WhatsApp link (no backend yet).
-- Direct contact block: phone 08146304928, email ajokuvictory0032@gmail.com, Instagram @veesually_, TikTok @veesually_.
-- Prominent WhatsApp + Email buttons.
-
-**Footer** (in `__root.tsx`)
-- VEESUALLY wordmark, tagline, contact info, social links, copyright.
-
-## SEO
-
-Per-route `head()`: unique title, description, og:title, og:description. Leaf routes with hero imagery set og:image. Single H1 per page. Semantic sections.
-
-## Technical Notes
-
-- TanStack Start file-based routes; nav via `<Link>`.
-- All colors via semantic tokens — no hardcoded hex in components.
-- Images: use Unsplash placeholder URLs themed to videography/fashion/events so the site looks real immediately; user can swap for real shots later.
-- Hero video: use a free silent cinematic MP4 (e.g. Pexels CDN URL) as placeholder.
-- Form validation with `zod` + `react-hook-form` (already shadcn-compatible).
-- No backend / Lovable Cloud needed at this stage — contact form posts via mailto/WhatsApp deep links.
-
-## Out of Scope (for now)
-
-- CMS for projects (hardcoded in a `src/data/projects.ts` module).
-- Real video uploads (placeholders only).
-- Email backend (mailto/WhatsApp deep links instead).
-
-Ready to build on your approval.
+No changes to data, routing, nav, or footer structure.
