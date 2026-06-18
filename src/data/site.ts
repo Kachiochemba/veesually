@@ -96,7 +96,7 @@ export const CATEGORIES: Category[] = [
 
 export const FEATURED = [
   {
-    title: "Veesually Showreel",
+    title: "Luxury watch editorial",
     category: "Product Videos" as Category,
     desc: "A cinematic highlight reel of recent work across luxury retail, fashion, and editorial videography.",
     image: showreelPoster.url,
