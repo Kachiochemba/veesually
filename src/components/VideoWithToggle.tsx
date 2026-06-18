@@ -167,7 +167,7 @@ export function VideoWithToggle({
         preload={preload}
         onPlay={() => { setStarted(true); setPlaying(true); }}
         onPause={() => { setPlaying(false); revealIcon(); }}
-        className="absolute inset-0 h-full w-full object-cover"
+        className={`absolute inset-0 h-full w-full ${objectFit === "contain" ? "object-contain" : "object-cover"}`}
         style={objectPosition ? { objectPosition } : undefined}
       />
 
