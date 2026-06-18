@@ -37,6 +37,7 @@ export function VideoWithToggle({
   const [started, setStarted] = useState(false);
   const [preload, setPreload] = useState<"metadata" | "auto">("metadata");
   const [iconVisible, setIconVisible] = useState(false);
+  const [isMuted, setIsMuted] = useState(muted);
   const hideTimer = useRef<number | null>(null);
   const userPausedRef = useRef(false);
 
