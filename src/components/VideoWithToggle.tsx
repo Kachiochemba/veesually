@@ -30,6 +30,7 @@ export function VideoWithToggle({
   ariaLabel = "Video",
   objectPosition,
   clipRange,
+  objectFit = "cover",
 }: Props) {
   const reducedMotion = usePrefersReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
