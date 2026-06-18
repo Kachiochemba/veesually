@@ -1,21 +1,11 @@
-## Goal
-Replace the current 5-second thumbnail for the "Luxury watch editorial" entry on the work page with a frame extracted at exactly 8 seconds from the `luxury-watches.mp4` video.
+## Problem
+In the work-page lightbox, the video plays inside a fixed 16:9 box with `object-cover`, which crops the actual video frame. For the Luxury Jewelry Editorial (and any video whose native aspect differs from 16:9), the jewelry sits low in frame and gets clipped — the items don't show fully.
 
-## Steps
+## Fix
+Render the lightbox video with `object-contain` instead of `object-cover` so the entire native frame is always visible (letterboxed against black if needed). Thumbnails on the grid stay as-is (`object-cover` on the 4:5 card).
 
-1. **Read the video asset** — Get the CDN URL from `src/assets/luxury-watches.mp4.asset.json`.
+### Changes
+1. `src/components/VideoWithToggle.tsx` — add an optional `objectFit?: "cover" | "contain"` prop (default `"cover"` to preserve current behavior everywhere else); apply it to the `<video>` className.
+2. `src/routes/work.tsx` — pass `objectFit="contain"` to the `VideoWithToggle` inside the modal so the full jewelry frame shows.
 
-2. **Extract frame at 8s** — Use ffmpeg to download the video and capture a single high-quality JPEG frame at the 8-second mark:
-   ```
-   ffmpeg -ss 00:00:08 -i <video_url> -vframes 1 -q:v 2 /tmp/luxury-watches-thumb-8s.jpg
-   ```
-
-3. **Upload as Lovable asset** — Use the `lovable-assets create` CLI to upload the extracted JPEG, producing `src/assets/luxury-watches-thumb-8s.jpg.asset.json`.
-
-4. **Update site data** — In `src/data/site.ts`:
-   - Add a new import for the 8-second thumbnail asset.
-   - Update the first `FEATURED` item ("Luxury watch editorial") to use the new 8s thumbnail instead of the existing 5s one.
-
-## Output
-- New asset file: `src/assets/luxury-watches-thumb-8s.jpg.asset.json`
-- Updated reference in `src/data/site.ts`
+No other pages or videos are affected.

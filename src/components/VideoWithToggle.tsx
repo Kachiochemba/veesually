@@ -16,6 +16,8 @@ type Props = {
   objectPosition?: string;
   /** Loop a sub-range of the video, e.g. { start: 5, end: 10 }. */
   clipRange?: { start: number; end: number };
+  /** How the video fills its container. Defaults to "cover". */
+  objectFit?: "cover" | "contain";
 };
 
 export function VideoWithToggle({
