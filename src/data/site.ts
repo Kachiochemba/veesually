@@ -96,6 +96,13 @@ export const CATEGORIES: Category[] = [
 
 export const FEATURED = [
   {
+    title: "Veesually Showreel",
+    category: "Product Videos" as Category,
+    desc: "A cinematic highlight reel of recent work across luxury retail, fashion, and editorial videography.",
+    image: showreelPoster.url,
+    video: showreelVideo.url,
+  },
+  {
     title: "TUS Ireland Pre-Departure Orientation",
     category: "Events" as Category,
     desc: "Event recap and promotional content documenting sessions on Visa Success Guide, Accommodation Readiness, Employment Insights, Student Success Planning, and International Education Preparation.",
