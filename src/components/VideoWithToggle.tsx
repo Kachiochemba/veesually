@@ -159,7 +159,7 @@ export function VideoWithToggle({
         src={src}
         poster={poster}
         loop={loop}
-        muted={muted}
+        muted={isMuted}
         playsInline
         preload={preload}
         onPlay={() => { setStarted(true); setPlaying(true); }}
