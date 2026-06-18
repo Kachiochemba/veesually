@@ -2,6 +2,8 @@ import tusVideo from "@/assets/tus-ireland.mp4.asset.json";
 import fashionLaunchVideo from "@/assets/fashion-brand-launch.mp4.asset.json";
 import luxuryWatchesVideo from "@/assets/showreel-featured.mp4.asset.json";
 import traditionalWeddingVideo from "@/assets/traditional-wedding.mp4.asset.json";
+import showreelVideo from "@/assets/luxury-watches.mp4.asset.json";
+import showreelPoster from "@/assets/luxury-watches-thumb-5s.jpg.asset.json";
 import tusThumb from "@/assets/tus-ireland-thumb-5s.jpg.asset.json";
 import fashionLaunchThumb from "@/assets/fashion-brand-launch-thumb-5s.jpg.asset.json";
 import showreelFeaturedThumb from "@/assets/showreel-featured-thumb-5s.jpg.asset.json";
@@ -93,6 +95,13 @@ export const CATEGORIES: Category[] = [
 ];
 
 export const FEATURED = [
+  {
+    title: "Veesually Showreel",
+    category: "Product Videos" as Category,
+    desc: "A cinematic highlight reel of recent work across luxury retail, fashion, and editorial videography.",
+    image: showreelPoster.url,
+    video: showreelVideo.url,
+  },
   {
     title: "TUS Ireland Pre-Departure Orientation",
     category: "Events" as Category,

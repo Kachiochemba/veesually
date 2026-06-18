@@ -1,39 +1,49 @@
-# Make contact submissions effectively never fail
+## Goal
 
-A browser `fetch()` only enters the `catch` branch when the request can't leave the device:
+1. Videos on the Work / portfolio page should play with **sound**.
+2. Home page videos stay silent (current behavior).
+3. The home page showreel video should also appear as an item on the Work page.
 
-1. Device is offline (no Wi-Fi / data).
-2. DNS or TLS handshake fails (captive-portal Wi-Fi, broken corporate proxy, expired root cert).
-3. Request is aborted mid-flight (user navigates away, tab closed, timeout).
-4. CORS preflight rejected (not a real risk for Formspree — it allows browser POSTs).
+## Changes
 
-We can't make the network itself reliable from inside the browser, but we can make sure the user's message is never silently lost. Two layers:
+### 1. `src/components/VideoWithToggle.tsx` — add real audio support
 
-## 1. Retry with exponential backoff
+Today the component hardcodes `muted` defaults and only renders a play/pause icon. Update it so:
 
-In `src/routes/contact.tsx` `onSubmit`:
-- Wrap the `fetch` in a small retry helper: up to 3 attempts, delays 0s → 1s → 3s.
-- Treat any completed response (any status) as success, same as today.
-- Only fall through to the failure branch after all retries throw.
-- During retries, keep the button in "Sending…" so the user knows it's still working.
+- `muted` prop is fully respected (no longer forced silent in any path).
+- Add a small **mute/unmute** button in the corner of the player (speaker / speaker‑off icon from `lucide-react`), shown whenever the video has started. Clicking it toggles `videoRef.current.muted` and updates local state.
+- When opened with `muted={false}`, the video starts unmuted. Because the Work page only plays videos *after* the user clicks a card (a real user gesture), browsers will allow audio playback — no autoplay‑with‑sound policy violation.
+- Home page calls (hero showreel, any inline auto‑playing clips) keep using the default `muted` (true), so nothing changes there.
 
-This handles transient drops (flaky Wi-Fi, brief DNS hiccups) without the user noticing.
+### 2. `src/routes/work.tsx` — unmute the lightbox player
 
-## 2. Background send via `navigator.sendBeacon` as a last resort
+In the modal `<VideoWithToggle ... />` for the active item, pass `muted={false}`. The grid thumbnails are still static images, so this only affects the opened lightbox where the user has just clicked.
 
-If all 3 `fetch` retries fail:
-- Try `navigator.sendBeacon(FORMSPREE_ENDPOINT, formData)`. Beacons are queued by the browser and delivered when the network returns, even if the tab is closed.
-- If the beacon is accepted (returns `true`), show the success message — the message is now in the browser's outbound queue and the user can safely leave the page.
-- If even the beacon is rejected (truly offline with no queue), show the existing fallback that points the user at WhatsApp / email so the message isn't lost.
+### 3. `src/data/site.ts` — add the showreel to `FEATURED`
 
-## 3. Honest fallback copy
+The home page's showreel uses `luxury-watches.mp4` + `luxury-watches-thumb-5s.jpg` (already imported on the index route). Add a new entry at the top of `FEATURED` so it shows up on `/work`:
 
-Update the error message to lead with the direct contacts instead of just "try again":
-"We couldn't send right now. Reach out on WhatsApp or email so we don't miss you." with the existing `wa.me` / `mailto:` links rendered as inline buttons under the error.
+```ts
+{
+  title: "Veesually Showreel",
+  category: "Product Videos",
+  desc: "A cinematic highlight reel of our recent work across luxury retail, fashion, and editorial videography.",
+  image: showreelPoster.url,         // luxury-watches-thumb-5s
+  video: showreelVideo.url,          // luxury-watches.mp4
+}
+```
 
-## Out of scope
-- No backend, no database, no new dependencies. Still purely Formspree.
-- No server-side queue (would require Lovable Cloud + a worker; happy to add that separately if you want true server-side guaranteed delivery).
+…and add the matching imports at the top of the file:
 
-## Files
-- `src/routes/contact.tsx` — retry helper, beacon fallback, updated error UI.
+```ts
+import showreelVideo from "@/assets/luxury-watches.mp4.asset.json";
+import showreelPoster from "@/assets/luxury-watches-thumb-5s.jpg.asset.json";
+```
+
+The home page keeps its local imports unchanged — no behavior change there.
+
+## Notes
+
+- No other pages or business logic touched.
+- "Autoplay with sound" is blocked by browsers globally; the Work lightbox bypasses this because it opens from a user click. If a browser still blocks audio in some edge case, the user can use the new unmute button.
+- The thumbnail / category for the showreel can be tweaked later if you want a different label than "Product Videos".

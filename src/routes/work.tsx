@@ -120,6 +120,7 @@ function WorkPage() {
               src={active.video}
               poster={active.image}
               autoPlayOnDesktop
+              muted={false}
               ariaLabel={active.title}
               className="aspect-video w-full overflow-hidden bg-black"
             />

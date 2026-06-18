@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Play, Pause } from "lucide-react";
+import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { useInView } from "@/hooks/use-in-view";
 
@@ -37,6 +37,7 @@ export function VideoWithToggle({
   const [started, setStarted] = useState(false);
   const [preload, setPreload] = useState<"metadata" | "auto">("metadata");
   const [iconVisible, setIconVisible] = useState(false);
+  const [isMuted, setIsMuted] = useState(muted);
   const hideTimer = useRef<number | null>(null);
   const userPausedRef = useRef(false);
 
@@ -158,7 +159,7 @@ export function VideoWithToggle({
         src={src}
         poster={poster}
         loop={loop}
-        muted={muted}
+        muted={isMuted}
         playsInline
         preload={preload}
         onPlay={() => { setStarted(true); setPlaying(true); }}
@@ -191,6 +192,25 @@ export function VideoWithToggle({
             {playing ? <Pause className="h-7 w-7" fill="currentColor" /> : <Play className="h-7 w-7 translate-x-0.5" fill="currentColor" />}
           </span>
         </div>
+      )}
+
+      {started && (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            const v = videoRef.current;
+            if (!v) return;
+            const next = !v.muted;
+            v.muted = next;
+            setIsMuted(next);
+            revealIcon();
+          }}
+          aria-label={isMuted ? "Unmute video" : "Mute video"}
+          className="absolute bottom-3 right-3 z-20 grid h-10 w-10 place-items-center rounded-full bg-black/60 text-white backdrop-blur-sm transition hover:bg-black/80"
+        >
+          {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+        </button>
       )}
     </div>
   );
