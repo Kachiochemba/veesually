@@ -122,6 +122,7 @@ function WorkPage() {
               autoPlayOnDesktop
               muted={false}
               ariaLabel={active.title}
+              objectFit="contain"
               className="aspect-video w-full overflow-hidden bg-black"
             />
             <div className="mt-4 flex items-baseline justify-between">

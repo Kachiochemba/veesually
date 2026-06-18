@@ -16,6 +16,8 @@ type Props = {
   objectPosition?: string;
   /** Loop a sub-range of the video, e.g. { start: 5, end: 10 }. */
   clipRange?: { start: number; end: number };
+  /** How the video fills its container. Defaults to "cover". */
+  objectFit?: "cover" | "contain";
 };
 
 export function VideoWithToggle({
@@ -28,6 +30,7 @@ export function VideoWithToggle({
   ariaLabel = "Video",
   objectPosition,
   clipRange,
+  objectFit = "cover",
 }: Props) {
   const reducedMotion = usePrefersReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -164,7 +167,7 @@ export function VideoWithToggle({
         preload={preload}
         onPlay={() => { setStarted(true); setPlaying(true); }}
         onPause={() => { setPlaying(false); revealIcon(); }}
-        className="absolute inset-0 h-full w-full object-cover"
+        className={`absolute inset-0 h-full w-full ${objectFit === "contain" ? "object-contain" : "object-cover"}`}
         style={objectPosition ? { objectPosition } : undefined}
       />
 
