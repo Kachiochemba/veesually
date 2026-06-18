@@ -193,6 +193,25 @@ export function VideoWithToggle({
           </span>
         </div>
       )}
+
+      {started && (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            const v = videoRef.current;
+            if (!v) return;
+            const next = !v.muted;
+            v.muted = next;
+            setIsMuted(next);
+            revealIcon();
+          }}
+          aria-label={isMuted ? "Unmute video" : "Mute video"}
+          className="absolute bottom-3 right-3 z-20 grid h-10 w-10 place-items-center rounded-full bg-black/60 text-white backdrop-blur-sm transition hover:bg-black/80"
+        >
+          {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+        </button>
+      )}
     </div>
   );
 }
