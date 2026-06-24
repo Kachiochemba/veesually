@@ -7,8 +7,9 @@ import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { useInView } from "@/hooks/use-in-view";
 import { VideoWithToggle } from "@/components/VideoWithToggle";
 import ownerImage from "@/assets/ajoku-victory.jpg";
-import showreelVideo from "@/assets/luxury-watches.mp4";
 import showreelPoster from "@/assets/luxury-watches-thumb-5s.jpg";
+
+const showreelVideo = "https://pub-86af84d8c4a34cf991aa0e00cac3ba67.r2.dev/luxury-watches.mp4";
 
 export const Route = createFileRoute("/")({
   head: () => ({
