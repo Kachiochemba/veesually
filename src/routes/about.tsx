@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useReveal } from "@/hooks/useReveal";
 import { INDUSTRIES } from "@/data/site";
-import ownerImage from "@/assets/ajoku-victory.jpg.asset.json";
+import ownerImage from "@/assets/ajoku-victory.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -33,7 +33,7 @@ function AboutPage() {
         <div className="md:col-span-5">
           <div className="aspect-[4/5] overflow-hidden bg-muted">
             <img
-              src={ownerImage.url}
+              src={ownerImage}
               alt="Ajoku Victory"
               className="h-full w-full object-cover"
             />

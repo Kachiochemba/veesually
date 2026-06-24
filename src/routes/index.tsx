@@ -6,9 +6,9 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { useInView } from "@/hooks/use-in-view";
 import { VideoWithToggle } from "@/components/VideoWithToggle";
-import ownerImage from "@/assets/ajoku-victory.jpg.asset.json";
-import showreelVideo from "@/assets/luxury-watches.mp4.asset.json";
-import showreelPoster from "@/assets/luxury-watches-thumb-5s.jpg.asset.json";
+import ownerImage from "@/assets/ajoku-victory.jpg";
+import showreelVideo from "@/assets/luxury-watches.mp4";
+import showreelPoster from "@/assets/luxury-watches-thumb-5s.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -222,8 +222,8 @@ function Showreel() {
   return (
     <Section title="Featured Showreel" subtitle="Reel 2026">
       <VideoWithToggle
-        src={showreelVideo.url}
-        poster={showreelPoster.url}
+        src={showreelVideo}
+        poster={showreelPoster}
         loop
         muted
         autoPlayOnDesktop
@@ -245,7 +245,7 @@ function AboutSnippet() {
         <div className="md:col-span-5">
           <div className="aspect-[4/5] overflow-hidden bg-muted">
             <img
-              src={ownerImage.url}
+              src={ownerImage}
               alt="Ajoku Victory"
               className="h-full w-full object-cover"
             />

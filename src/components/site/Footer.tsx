@@ -2,7 +2,7 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { SITE } from "@/data/site";
 import { Instagram } from "lucide-react";
 import { TikTokIcon } from "@/components/icons/TikTokIcon";
-import logoAsset from "@/assets/veesually-logo.png.asset.json";
+import logoAsset from "@/assets/veesually-logo.png";
 
 export function Footer() {
   const { pathname } = useLocation();
@@ -81,7 +81,7 @@ export function Footer() {
 
 
         <div className={`flex flex-col items-start justify-between gap-6 md:flex-row md:items-center ${!isContact ? "mt-20 border-t border-border pt-8" : ""}`}>
-          <img src={logoAsset.url} alt="Veesually" className="h-[150px] w-auto" />
+          <img src={logoAsset} alt="Veesually" className="h-[150px] w-auto" />
           <p className="text-xs text-muted-foreground">
             Veesually · Lagos, Nigeria · Founded by Ajoku Victory · © {new Date().getFullYear()}
           </p>

@@ -1,13 +1,13 @@
-import tusVideo from "@/assets/tus-ireland.mp4.asset.json";
-import fashionLaunchVideo from "@/assets/fashion-brand-launch.mp4.asset.json";
-import luxuryWatchesVideo from "@/assets/showreel-featured.mp4.asset.json";
-import traditionalWeddingVideo from "@/assets/traditional-wedding.mp4.asset.json";
-import showreelVideo from "@/assets/luxury-watches.mp4.asset.json";
-import showreelPoster from "@/assets/luxury-watches-thumb-8s.jpg.asset.json";
-import tusThumb from "@/assets/tus-ireland-thumb-5s.jpg.asset.json";
-import fashionLaunchThumb from "@/assets/fashion-brand-launch-thumb-5s.jpg.asset.json";
-import showreelFeaturedThumb from "@/assets/showreel-featured-thumb-5s.jpg.asset.json";
-import traditionalWeddingThumb from "@/assets/traditional-wedding-thumb-5s.jpg.asset.json";
+import tusVideo from "@/assets/tus-ireland.mp4";
+import fashionLaunchVideo from "@/assets/fashion-brand-launch.mp4";
+import luxuryWatchesVideo from "@/assets/showreel-featured.mp4";
+import traditionalWeddingVideo from "@/assets/traditional-wedding.mp4";
+import showreelVideo from "@/assets/luxury-watches.mp4";
+import showreelPoster from "@/assets/luxury-watches-thumb-8s.jpg";
+import tusThumb from "@/assets/tus-ireland-thumb-5s.jpg";
+import fashionLaunchThumb from "@/assets/fashion-brand-launch-thumb-5s.jpg";
+import showreelFeaturedThumb from "@/assets/showreel-featured-thumb-5s.jpg";
+import traditionalWeddingThumb from "@/assets/traditional-wedding-thumb-5s.jpg";
 
 export const SITE = {
   name: "VEESUALLY",
@@ -99,36 +99,36 @@ export const FEATURED = [
     title: "Luxury watch editorial",
     category: "Product Videos" as Category,
     desc: "A cinematic highlight reel of recent work across luxury retail, fashion, and editorial videography.",
-    image: showreelPoster.url,
-    video: showreelVideo.url,
+    image: showreelPoster,
+    video: showreelVideo,
   },
   {
     title: "TUS Ireland Pre-Departure Orientation",
     category: "Events" as Category,
     desc: "Event recap and promotional content documenting sessions on Visa Success Guide, Accommodation Readiness, Employment Insights, Student Success Planning, and International Education Preparation.",
-    image: tusThumb.url,
-    video: tusVideo.url,
+    image: tusThumb,
+    video: tusVideo,
   },
   {
     title: "Ruby Luxe Fashion & Luxury Brand",
     category: "Fashion" as Category,
     desc: "Promotional content and event coverage featuring luxury fabrics, laces, asoebi materials, jewelry, wristwatches, and native caps, across the grand opening and ongoing social content.",
-    image: fashionLaunchThumb.url,
-    video: fashionLaunchVideo.url,
+    image: fashionLaunchThumb,
+    video: fashionLaunchVideo,
   },
   {
     title: "Luxury Jewelry Editorial",
     category: "Product Videos" as Category,
     desc: "Cinematic product films for luxury jewelry brands, goldsmiths, and premium retailers, crafted to highlight detail, craftsmanship, and desire.",
-    image: showreelFeaturedThumb.url,
-    video: luxuryWatchesVideo.url,
+    image: showreelFeaturedThumb,
+    video: luxuryWatchesVideo,
   },
   {
     title: "Traditional Wedding Ceremony",
     category: "Weddings" as Category,
     desc: "Cinematic documentation of traditional wedding ceremonies, from vibrant cultural rites and family blessings to the elegant reception. Every moment preserved with storytelling precision.",
-    image: traditionalWeddingThumb.url,
-    video: traditionalWeddingVideo.url,
+    image: traditionalWeddingThumb,
+    video: traditionalWeddingVideo,
     thumbnailStart: 5,
   },
 ];
