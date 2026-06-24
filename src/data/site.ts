@@ -1,13 +1,17 @@
 import tusVideo from "@/assets/tus-ireland.mp4";
-import fashionLaunchVideo from "@/assets/fashion-brand-launch.mp4";
 import luxuryWatchesVideo from "@/assets/showreel-featured.mp4";
-import traditionalWeddingVideo from "@/assets/traditional-wedding.mp4";
 import showreelVideo from "@/assets/luxury-watches.mp4";
 import showreelPoster from "@/assets/luxury-watches-thumb-8s.jpg";
 import tusThumb from "@/assets/tus-ireland-thumb-5s.jpg";
 import fashionLaunchThumb from "@/assets/fashion-brand-launch-thumb-5s.jpg";
 import showreelFeaturedThumb from "@/assets/showreel-featured-thumb-5s.jpg";
 import traditionalWeddingThumb from "@/assets/traditional-wedding-thumb-5s.jpg";
+
+// These two videos are hosted on Cloudflare R2 instead of bundled locally —
+// they were too large for GitHub (over 100MB each).
+// Replace the placeholder URLs below once the R2 bucket is set up.
+const fashionLaunchVideo = "https://pub-xxxxxxxx.r2.dev/fashion-brand-launch.mp4";
+const traditionalWeddingVideo = "https://pub-xxxxxxxx.r2.dev/traditional-wedding.mp4";
 
 export const SITE = {
   name: "VEESUALLY",
